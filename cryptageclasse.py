@@ -75,6 +75,7 @@ def main():
     Mail2.modecryptage(False)
     Mail2.vigenere("niouininon")
     print(Mail2)
+    print("rien")
 
 main()
 
