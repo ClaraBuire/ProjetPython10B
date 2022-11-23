@@ -90,6 +90,7 @@ class Clé:
         self.longueur = len(clé)
 
 class Image:
+    print("hello")
     pass
 
 class AttaqueMessage:
