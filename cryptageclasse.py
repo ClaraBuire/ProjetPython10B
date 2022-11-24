@@ -10,6 +10,9 @@ class Dictionnaire:
         self.dicpoids = {i: j for j, i in self.diclettre.items()}
         self.longueur = len(Lalphabet)
 
+    def __repr__(self):
+        return "dico lettre : " + self.diclettre + "et dico poids : " + self.dicpoids
+
 class Message:
     def __init__(self,texte,dicoalphapoids):
         self.texte = texte
@@ -24,22 +27,22 @@ class Message:
             self.cryptage = -1
 
     def cesar(self,clé):
-        self.clé = clé
+        self.clé = clé.texte
         mescrypte = ""
         for caractere in self.texte.lower():
-            if caractere.isalpha():
+            if caractere in self.dico.diclettre:
                 mescrypte += self.dico.dicpoids.get((self.cryptage*int(self.clé) + self.dico.diclettre[caractere])%self.dico.longueur)
             else:
                 mescrypte += caractere
         self.texte = mescrypte
     
     def vigenere(self,clé):
-        self.clé = clé
+        self.clé = clé.texte
         mescrypte = ""
-        iclé = 0  #plus tard faire de la clé une classe
-        lclé = len(clé)
+        iclé = 0 
+        lclé = clé.longueur
         for caractere in self.texte.lower():
-            if caractere.isalpha():
+            if caractere in self.dico.diclettre:
                 decalage = self.dico.diclettre[clé[iclé%lclé]]
                 mescrypte += self.dico.dicpoids.get((self.cryptage*decalage + self.dico.diclettre[caractere])%self.dico.longueur)
             else:
@@ -49,10 +52,18 @@ class Message:
         
 
     def __repr__(self):
-        return 'Message_test : ' + self.texte
+        return 'Message : ' + self.texte
+
+class Clé:
+    def __init__(self,clé):
+        self.texte = clé
+        self.longueur = len(clé)
+
+    def __repr__(self):
+        return self.texte
 
 def main():
-    Lalphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","à","é","è","ê","ù"]
+    Lalphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","à","é","è","ê","ù"," ","@",".",",",";","?","!","+","-","/","*","0","1","2","3","4","5","6","7","8","9","10"]
     Lpoids = [i for i in range(0,len(Lalphabet))]
     dicoalphapoids = Dictionnaire()
     dicoalphapoids.dic(Lalphabet,Lpoids)
@@ -60,11 +71,11 @@ def main():
     print(Mail)
     #César
     print("César")
-    clé = "18"
+    clé = Clé("18")
     Mail.cesar(clé)
     print(Mail)
     Mail.modecryptage(False)
-    Mail.cesar("18")
+    Mail.cesar(clé)
     print(Mail)
     #Vigenere
     print("Vigenere")
@@ -75,7 +86,6 @@ def main():
     Mail2.modecryptage(False)
     Mail2.vigenere("niouininon")
     print(Mail2)
-    print("rien")
 
 main()
 
@@ -85,16 +95,40 @@ Cryptage Asymétrique
 Interface Asymetrique
 '''
 
-class Clé:
-    def __init__(self,clé,longueur):
-        self.clé = clé
-        self.longueur = len(clé)
-
 class Image:
-    print("hello")
     pass
 
 class AttaqueMessage:
-    pass
+    def __init__(self,dico):
+        self.typecraquage = ""
+        self.mescrypte = ""
+        self.dico = dico
+    '''
+    def craquagecesar(self,mescrypte,alphabet):
+        # E étant de loin la lettre la plus utilisée en français on cherche le decalage par rapport à E
+        l = len(alphabet)
+        Lf = analysefrequentielle(mescrypte,alphabet)
+        imaxf = 0
+        maxf = 0
+        for (i,f) in enumerate(Lf):
+            if f > maxf:
+                imaxf = i 
+                maxf = f
+        return (imaxf-4)%l  #indice de la lettre la plus recurente - l'indice de e (modulu la longueur de la liste)
+        
+
+    def analysefrequentielle(self,mescrypte,alphabet):
+    l = len(alphabet)
+    dic = dictionaire(alphabet,[i for i in range(0,l)])
+    Lfrequence = [0]*l
+    for caractere in mescrypte.lower():
+        if caractere.isalpha():
+            Lfrequence[dic[caractere]] += 1   #on compte les itérations de chaque caractere
+    for elt in Lfrequence:
+        elt = elt/l #on passe en frequence
+    return Lfrequence
+    '''
+
+
 
 
