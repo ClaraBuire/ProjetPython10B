@@ -1,7 +1,7 @@
 CHOSES à FAIRE : 
 
 - Codage d'image
-- IHM
+- IHM --> Rémi
 - Codage asymétrique
 - Recherche d'autre type Codage
 - ??? ajoutez vos idées ????
