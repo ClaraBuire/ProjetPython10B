@@ -31,9 +31,9 @@
   <widget class="QLabel" name="label1">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>80</x>
      <y>20</y>
-     <width>211</width>
+     <width>251</width>
      <height>51</height>
     </rect>
    </property>
@@ -46,7 +46,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Cryptage César </string>
+    <string>Cryptage Vigenère</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -62,7 +62,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -177,21 +177,21 @@
          </font>
         </property>
         <property name="text">
-         <string>Clé  de cryptage :</string>
+         <string>Clé de cryptage :</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="KeyInput">
+       <widget class="QLineEdit" name="KeyInput">
         <property name="minimumSize">
          <size>
-          <width>50</width>
+          <width>200</width>
           <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>50</width>
+          <width>200</width>
           <height>30</height>
          </size>
         </property>
@@ -200,12 +200,6 @@
           <family>Rockwell Nova</family>
           <pointsize>10</pointsize>
          </font>
-        </property>
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="maximum">
-         <number>10000000</number>
         </property>
        </widget>
       </item>
@@ -222,7 +216,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Texte Sortie :</string>
+         <string>Texte sortie :</string>
         </property>
        </widget>
       </item>
@@ -255,7 +249,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>

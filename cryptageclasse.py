@@ -8,7 +8,7 @@ class Dictionnaire:
         self.dicpoids = {}
         self.longueur = 0
 
-    def dic(self,Lalphabet,Lpoids):
+    def dic(self, Lalphabet, Lpoids):
         for (i,lettre) in enumerate(Lalphabet):
             self.diclettre[lettre]= Lpoids[i]
         self.dicpoids = {i: j for j, i in self.diclettre.items()}
@@ -17,8 +17,16 @@ class Dictionnaire:
     def __repr__(self):
         return "dico lettre : " + self.diclettre + "et dico poids : " + self.dicpoids
 
+def info_dico():
+    Lalphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","à","é","è","ê","ù"," ","@",".",",",";","?","!","+","-","/","*","0","1","2","3","4","5","6","7","8","9","10"]
+    n=len(Lalphabet)
+    Lpoids = [i for i in range(n)]
+    dicoalphapoids = Dictionnaire()
+    dicoalphapoids.dic(Lalphabet,Lpoids)
+    return dicoalphapoids
+
 class Message:
-    def __init__(self,texte,dicoalphapoids):
+    def __init__(self,texte,dicoalphapoids=info_dico()):
         self.texte = texte
         self.dico = dicoalphapoids
         self.clé = ""
@@ -66,30 +74,7 @@ class Clé:
     def __repr__(self):
         return self.texte
 
-def DiffieHellman():
-    #Programme pour echanger les clés publics privés
-    try:
-        g = int(input("User1 : Veuillez entrez un entier g (entre 2 et 9 :) "))
-        a = int(input("User1 : Veuillez entrez un entier a, qui sera votre clé privé (entre 1 et 999): "))
-        A = g**a   #clé public de user1
-        print("User2 : Voici la clé public de User1 : ",A,"et l'entier g choisi (entre 1 et 999) : ",g)
-        b = int(input("User2 : Veuillez entrez un entier b, qui sera votre clé privé :"))
-        B = g**b
-        print("User1 : Voici la clé public de User2 : B = ",B)
-        Xuser1 = Clé(str(B**a))
-        print("User1 : Voici la clé secrete partagé avec User2 :",Xuser1)
-        Xuser2 = Clé(str(A**b))
-        print("User2 : Voici la clé secrete partagé avec User1 :",Xuser2)
-        #Xuser1 = Xuser2 mais chaqu'un fait son propre calcul avec ces infos
-        return Xuser1,Xuser2
-    except TypeError:
-        print("Erreur : Veuillez recommencez le programme d'échanges de clé")
-
-
-
 def main():
-    DiffieHellman()
-    '''
     Lalphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","à","é","è","ê","ù"," ","@",".",",",";","?","!","+","-","/","*","0","1","2","3","4","5","6","7","8","9","10"]
     Lpoids = [i for i in range(0,len(Lalphabet))]
     dicoalphapoids = Dictionnaire()
@@ -107,14 +92,13 @@ def main():
     #Vigenere
     print("Vigenere")
     Mail2 = Message("Andreas.Clara@donnenousunebonnenote.com",dicoalphapoids)
-    Clé = Clé("niouininou")
     print(Mail2)
     Mail2.vigenere("niouininon")
     print(Mail2)
     Mail2.modecryptage(False)
     Mail2.vigenere("niouininon")
     print(Mail2)
-   '''
+
 main()
 
 
