@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'wid_cesar.ui'
+# Form implementation generated from reading ui file 'wid_vigenere.ui'
 #
 # Created by: PyQt5 UI code generator 5.12.3
 #
@@ -8,7 +8,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import cryptageclasse as cc
 
 
 class Ui_Form(object):
@@ -19,7 +18,7 @@ class Ui_Form(object):
         Form.setMinimumSize(QtCore.QSize(422, 332))
         Form.setMaximumSize(QtCore.QSize(422, 332))
         self.label1 = QtWidgets.QLabel(Form)
-        self.label1.setGeometry(QtCore.QRect(90, 20, 241, 51))
+        self.label1.setGeometry(QtCore.QRect(60, 20, 291, 51))
         font = QtGui.QFont()
         font.setFamily("Rockwell Nova Cond")
         font.setPointSize(20)
@@ -27,8 +26,12 @@ class Ui_Form(object):
         font.setWeight(75)
         self.label1.setFont(font)
         self.label1.setObjectName("label1")
+        self.label_4 = QtWidgets.QLabel(Form)
+        self.label_4.setGeometry(QtCore.QRect(10, 150, 55, 16))
+        self.label_4.setText("")
+        self.label_4.setObjectName("label_4")
         self.layoutWidget = QtWidgets.QWidget(Form)
-        self.layoutWidget.setGeometry(QtCore.QRect(20, 80, 381, 191))
+        self.layoutWidget.setGeometry(QtCore.QRect(20, 80, 386, 191))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -83,12 +86,15 @@ class Ui_Form(object):
         self.label4.setFont(font)
         self.label4.setObjectName("label4")
         self.horizontalLayout_3.addWidget(self.label4)
-        self.spinBox = QtWidgets.QSpinBox(self.layoutWidget)
-        self.spinBox.setMinimumSize(QtCore.QSize(50, 30))
-        self.spinBox.setMaximumSize(QtCore.QSize(50, 30))
-        self.spinBox.setMaximum(999999999)
-        self.spinBox.setObjectName("spinBox")
-        self.horizontalLayout_3.addWidget(self.spinBox)
+        self.KeyInput = QtWidgets.QLineEdit(self.layoutWidget)
+        self.KeyInput.setMinimumSize(QtCore.QSize(200, 30))
+        self.KeyInput.setMaximumSize(QtCore.QSize(200, 30))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell Nova")
+        font.setPointSize(10)
+        self.KeyInput.setFont(font)
+        self.KeyInput.setObjectName("KeyInput")
+        self.horizontalLayout_3.addWidget(self.KeyInput)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -99,16 +105,11 @@ class Ui_Form(object):
         self.label5.setFont(font)
         self.label5.setObjectName("label5")
         self.horizontalLayout_4.addWidget(self.label5)
-        self.TextOutput = QtWidgets.QLabel(self.layoutWidget)
-        self.TextOutput.setMinimumSize(QtCore.QSize(200, 30))
-        self.TextOutput.setMaximumSize(QtCore.QSize(200, 30))
-        font = QtGui.QFont()
-        font.setFamily("Rockwell Nova")
-        font.setPointSize(10)
-        self.TextOutput.setFont(font)
-        self.TextOutput.setText("")
-        self.TextOutput.setObjectName("TextOutput")
-        self.horizontalLayout_4.addWidget(self.TextOutput)
+        self.textBrowser = QtWidgets.QTextBrowser(self.layoutWidget)
+        self.textBrowser.setMinimumSize(QtCore.QSize(200, 30))
+        self.textBrowser.setMaximumSize(QtCore.QSize(200, 30))
+        self.textBrowser.setObjectName("textBrowser")
+        self.horizontalLayout_4.addWidget(self.textBrowser)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.layoutWidget1 = QtWidgets.QWidget(Form)
         self.layoutWidget1.setGeometry(QtCore.QRect(20, 280, 381, 42))
@@ -116,24 +117,24 @@ class Ui_Form(object):
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.layoutWidget1)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.pushButton_2 = QtWidgets.QPushButton(self.layoutWidget1)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(100, 30))
-        self.pushButton_2.setMaximumSize(QtCore.QSize(100, 30))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_5.addWidget(self.pushButton_2)
-        self.pushButton = QtWidgets.QPushButton(self.layoutWidget1)
-        self.pushButton.setMinimumSize(QtCore.QSize(100, 30))
-        self.pushButton.setMaximumSize(QtCore.QSize(100, 30))
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout_5.addWidget(self.pushButton)
+        self.ButtonClear = QtWidgets.QPushButton(self.layoutWidget1)
+        self.ButtonClear.setMinimumSize(QtCore.QSize(100, 30))
+        self.ButtonClear.setMaximumSize(QtCore.QSize(100, 30))
+        self.ButtonClear.setObjectName("ButtonClear")
+        self.horizontalLayout_5.addWidget(self.ButtonClear)
+        self.OKButton = QtWidgets.QPushButton(self.layoutWidget1)
+        self.OKButton.setMinimumSize(QtCore.QSize(100, 30))
+        self.OKButton.setMaximumSize(QtCore.QSize(100, 30))
+        self.OKButton.setObjectName("OKButton")
+        self.horizontalLayout_5.addWidget(self.OKButton)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Cryptage César"))
-        self.label1.setText(_translate("Form", "Cryptage César"))
+        Form.setWindowTitle(_translate("Form", "Cryptage Vigenère"))
+        self.label1.setText(_translate("Form", "Cryptage Vigenère"))
         self.label2.setText(_translate("Form", "Mode :"))
         self.ModeInput.setCurrentText(_translate("Form", "Cryptage"))
         self.ModeInput.setItemText(0, _translate("Form", "Cryptage"))
@@ -141,36 +142,20 @@ class Ui_Form(object):
         self.label3.setText(_translate("Form", "Texte entrée :"))
         self.label4.setText(_translate("Form", "Clé de cryptage :"))
         self.label5.setText(_translate("Form", "Texte sortie :"))
-        self.pushButton_2.setText(_translate("Form", "CLEAR"))
-        self.pushButton.setText(_translate("Form", "OK"))
+        self.textBrowser.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.ButtonClear.setText(_translate("Form", "CLEAR"))
+        self.OKButton.setText(_translate("Form", "OK"))
 
-    def clear(self):
-        """remet tout à 0 quand le bouton clear est pressé"""
-        self.TextInput.setText('')
-        self.TextOutput.setText("")
-        self.spinBox.setValue(0)
 
-    def cryptage(self, mode=None):
-        """crypte en cesar a partir de cryptageclasse.py"""        
-        msg=cc.Message(str(self.TextInput.text()))
-        if self.ModeInput.currentIndex()==0:            #mode cryptage
-            msg.modecryptage(True)
-        else:
-            msg.modecryptage(False)
-        cle=cc.Clé(str(self.spinBox.text()))
-        msg.cesar(cle)
-        self.TextOutput.setText(str(msg.texte))
-
-def main_cesar():  #sert a relier le programme au widget
+if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
-    ui.pushButton_2.clicked.connect(lambda : ui.clear()) #bouton clear
-    ui.pushButton.clicked.connect(lambda: ui.cryptage()) #bouton ok
     sys.exit(app.exec_())
-
-if __name__ == "__main__":
-    main_cesar()
