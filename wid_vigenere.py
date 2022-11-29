@@ -9,6 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cryptageclasse as cc
+import sys
 
 
 class Ui_Form(object):
@@ -111,9 +112,11 @@ class Ui_Form(object):
         self.TextOutput.setMaximumSize(QtCore.QSize(200, 30))
         font = QtGui.QFont()
         font.setFamily("Rockwell Nova")
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.TextOutput.setFont(font)
+        self.TextOutput.setCursor(QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.TextOutput.setText("")
+        self.TextOutput.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.TextOutput.setObjectName("TextOutput")
         self.horizontalLayout_4.addWidget(self.TextOutput)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
@@ -124,10 +127,15 @@ class Ui_Form(object):
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.ButtonClear = QtWidgets.QPushButton(self.layoutWidget1)
-        self.ButtonClear.setMinimumSize(QtCore.QSize(100, 30))
-        self.ButtonClear.setMaximumSize(QtCore.QSize(100, 30))
+        self.ButtonClear.setMinimumSize(QtCore.QSize(110, 30))
+        self.ButtonClear.setMaximumSize(QtCore.QSize(110, 30))
         self.ButtonClear.setObjectName("ButtonClear")
         self.horizontalLayout_5.addWidget(self.ButtonClear)
+        self.CopyButton = QtWidgets.QPushButton(self.layoutWidget1)
+        self.CopyButton.setMinimumSize(QtCore.QSize(110, 30))
+        self.CopyButton.setMaximumSize(QtCore.QSize(110, 30))
+        self.CopyButton.setObjectName("CopyButton")
+        self.horizontalLayout_5.addWidget(self.CopyButton)
         self.OKButton = QtWidgets.QPushButton(self.layoutWidget1)
         self.OKButton.setMinimumSize(QtCore.QSize(100, 30))
         self.OKButton.setMaximumSize(QtCore.QSize(100, 30))
@@ -149,35 +157,45 @@ class Ui_Form(object):
         self.label4.setText(_translate("Form", "Clé de cryptage :"))
         self.label5.setText(_translate("Form", "Texte sortie :"))
         self.ButtonClear.setText(_translate("Form", "CLEAR"))
+        self.CopyButton.setText(_translate("Form", "COPIE SORTIE"))
         self.OKButton.setText(_translate("Form", "OK"))
 
     def clear(self):
         self.TextInput.setText("")
         self.KeyInput.setText("")
         self.TextOutput.setText("")
+        self.ModeInput.setCurrentIndex(0)
 
     def cryptage(self):
-        mail = cc.Message(str(self.TextInput.text()))
-        if self.ModeInput.currentIndex==0: #mode cryptage
-            mail.modecryptage(True)
-        else:                              #mode décryptage
-            mail.modecryptage(False)
-        cle=cc.Clé(str(self.KeyInput.text()))
-        mail.vigenere(cle)
-        self.TextOutput.setText(str(mail.texte))
+        try:
+            mail = cc.Message(str(self.TextInput.text()))
+            if self.ModeInput.currentIndex==0: #mode cryptage
+                mail.modecryptage(True)
+            else:                              #mode décryptage
+                mail.modecryptage(False)
+            cle=cc.Clé(str(self.KeyInput.text()))
+            mail.vigenere(cle)
+            self.TextOutput.setText(str(mail.texte))
+        except Exception:
+            self.clear()
+            self.TextInput.setText("### ERROR ###")
+            self.TextOutput.setText(str(Exception))
 
-
+    def copie(self):
+        """copie le texte de sortie dans le presse papier"""
+        clipboard = QtGui.QGuiApplication.clipboard()
+        clipboard.setText(self.TextOutput.text())
 
 
 def main_vigenere():
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
-    ui.ButtonClear.clicked.connect(lambda : ui.clear())
-    ui.OKButton.clicked.connect(lambda : ui.cryptage())
+    ui.OKButton.clicked.connect(lambda : ui.cryptage()) #bouton OK
+    ui.ButtonClear.clicked.connect(lambda : ui.clear()) #bouton clear
+    ui.CopyButton.clicked.connect(lambda : ui.copie()) #bouton copie
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

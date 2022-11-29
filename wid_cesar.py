@@ -6,9 +6,10 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cryptageclasse as cc
+import sys
 
 
 class Ui_Form(object):
@@ -26,6 +27,7 @@ class Ui_Form(object):
         font.setBold(True)
         font.setWeight(75)
         self.label1.setFont(font)
+        self.label1.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label1.setObjectName("label1")
         self.layoutWidget = QtWidgets.QWidget(Form)
         self.layoutWidget.setGeometry(QtCore.QRect(20, 80, 381, 191))
@@ -40,6 +42,7 @@ class Ui_Form(object):
         font.setFamily("Rockwell Nova")
         font.setPointSize(11)
         self.label2.setFont(font)
+        self.label2.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label2.setObjectName("label2")
         self.horizontalLayout.addWidget(self.label2)
         self.ModeInput = QtWidgets.QComboBox(self.layoutWidget)
@@ -62,6 +65,7 @@ class Ui_Form(object):
         font.setFamily("Rockwell Nova")
         font.setPointSize(11)
         self.label3.setFont(font)
+        self.label3.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label3.setObjectName("label3")
         self.horizontalLayout_2.addWidget(self.label3)
         self.TextInput = QtWidgets.QLineEdit(self.layoutWidget)
@@ -81,14 +85,15 @@ class Ui_Form(object):
         font.setFamily("Rockwell Nova")
         font.setPointSize(11)
         self.label4.setFont(font)
+        self.label4.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label4.setObjectName("label4")
         self.horizontalLayout_3.addWidget(self.label4)
-        self.spinBox = QtWidgets.QSpinBox(self.layoutWidget)
-        self.spinBox.setMinimumSize(QtCore.QSize(50, 30))
-        self.spinBox.setMaximumSize(QtCore.QSize(50, 30))
-        self.spinBox.setMaximum(999999999)
-        self.spinBox.setObjectName("spinBox")
-        self.horizontalLayout_3.addWidget(self.spinBox)
+        self.KeyInput = QtWidgets.QSpinBox(self.layoutWidget)
+        self.KeyInput.setMinimumSize(QtCore.QSize(50, 30))
+        self.KeyInput.setMaximumSize(QtCore.QSize(50, 30))
+        self.KeyInput.setMaximum(999999999)
+        self.KeyInput.setObjectName("KeyInput")
+        self.horizontalLayout_3.addWidget(self.KeyInput)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -97,6 +102,7 @@ class Ui_Form(object):
         font.setFamily("Rockwell Nova")
         font.setPointSize(11)
         self.label5.setFont(font)
+        self.label5.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label5.setObjectName("label5")
         self.horizontalLayout_4.addWidget(self.label5)
         self.TextOutput = QtWidgets.QLabel(self.layoutWidget)
@@ -106,7 +112,9 @@ class Ui_Form(object):
         font.setFamily("Rockwell Nova")
         font.setPointSize(10)
         self.TextOutput.setFont(font)
+        self.TextOutput.setCursor(QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.TextOutput.setText("")
+        self.TextOutput.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextBrowserInteraction|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
         self.TextOutput.setObjectName("TextOutput")
         self.horizontalLayout_4.addWidget(self.TextOutput)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
@@ -116,16 +124,21 @@ class Ui_Form(object):
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.layoutWidget1)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.pushButton_2 = QtWidgets.QPushButton(self.layoutWidget1)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(100, 30))
-        self.pushButton_2.setMaximumSize(QtCore.QSize(100, 30))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_5.addWidget(self.pushButton_2)
-        self.pushButton = QtWidgets.QPushButton(self.layoutWidget1)
-        self.pushButton.setMinimumSize(QtCore.QSize(100, 30))
-        self.pushButton.setMaximumSize(QtCore.QSize(100, 30))
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout_5.addWidget(self.pushButton)
+        self.ClearButton = QtWidgets.QPushButton(self.layoutWidget1)
+        self.ClearButton.setMinimumSize(QtCore.QSize(110, 30))
+        self.ClearButton.setMaximumSize(QtCore.QSize(110, 30))
+        self.ClearButton.setObjectName("ClearButton")
+        self.horizontalLayout_5.addWidget(self.ClearButton)
+        self.CopyButton = QtWidgets.QPushButton(self.layoutWidget1)
+        self.CopyButton.setMinimumSize(QtCore.QSize(110, 30))
+        self.CopyButton.setMaximumSize(QtCore.QSize(110, 30))
+        self.CopyButton.setObjectName("CopyButton")
+        self.horizontalLayout_5.addWidget(self.CopyButton)
+        self.OKButton = QtWidgets.QPushButton(self.layoutWidget1)
+        self.OKButton.setMinimumSize(QtCore.QSize(110, 30))
+        self.OKButton.setMaximumSize(QtCore.QSize(110, 30))
+        self.OKButton.setObjectName("OKButton")
+        self.horizontalLayout_5.addWidget(self.OKButton)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -141,42 +154,48 @@ class Ui_Form(object):
         self.label3.setText(_translate("Form", "Texte entrée :"))
         self.label4.setText(_translate("Form", "Clé de cryptage :"))
         self.label5.setText(_translate("Form", "Texte sortie :"))
-        self.pushButton_2.setText(_translate("Form", "CLEAR"))
-        self.pushButton.setText(_translate("Form", "OK"))
+        self.ClearButton.setText(_translate("Form", "CLEAR"))
+        self.CopyButton.setText(_translate("Form", "COPIE SORTIE"))
+        self.OKButton.setText(_translate("Form", "OK"))
+
 
     def clear(self):
         """remet tout à 0 quand le bouton clear est pressé"""
         self.TextInput.setText('')
         self.TextOutput.setText("")
-        self.spinBox.setValue(0)
+        self.KeyInput.setValue(0)
+        self.ModeInput.setCurrentIndex(0)
 
     def cryptage(self, mode=None):
-        """crypte en cesar a partir de cryptageclasse.py"""        
-        msg=cc.Message(str(self.TextInput.text()))
-        if self.ModeInput.currentIndex()==0:            #mode cryptage
-            msg.modecryptage(True)
-        else:
-            msg.modecryptage(False)
-        cle=cc.Clé(str(self.spinBox.text()))
-        msg.cesar(cle)
-        self.TextOutput.setText(str(msg.texte))
+        """crypte en cesar a partir de cryptageclasse.py"""
+        try:        
+            msg=cc.Message(str(self.TextInput.text()))
+            if self.ModeInput.currentIndex()==0:            #mode cryptage
+                msg.modecryptage(True)
+            else:
+                msg.modecryptage(False)
+            cle=cc.Clé(str(self.KeyInput.text()))
+            msg.cesar(cle)
+            self.TextOutput.setText(str(msg.texte))
+        except Exception:
+            self.clear()
+            self.TextInput.setText("### ERROR ###")
+            self.TextOutput.setText(str(Exception))
 
+    def copie(self): #il faut rajouter un bouton de copie sur le widget
+        """copie le texte de sortie dans le presse papier"""
+        clipboard = QtGui.QGuiApplication.clipboard()
+        clipboard.setText(self.TextOutput.text())
 
-def copie(texte): #il faut rajouter un bouton de copie sur le widget
-    """copie le texte de sortie dans le presse papier"""
-    clipboard = QtGui.QGuiApplication.clipboard()
-    clipboard.setText(texte)
-    
-
-def main_cesar():  #sert a relier le programme au widget
+def main_cesar():
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
-    ui.pushButton_2.clicked.connect(lambda : ui.clear()) #bouton clear
-    ui.pushButton.clicked.connect(lambda: ui.cryptage()) #bouton ok
-    #rajouter la commande pour relier le bouton copie au code
+    ui.ClearButton.clicked.connect(lambda : ui.clear()) #bouton clear
+    ui.OKButton.clicked.connect(lambda: ui.cryptage()) #bouton ok
+    ui.CopyButton.clicked.connect(lambda : ui.copie()) #bouton copie
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
