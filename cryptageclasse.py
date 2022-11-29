@@ -1,14 +1,18 @@
 import sys
-sys.set_int_max_str_digits(1000000)
+sys.set_int_max_str_digits(1000000) #permet l'affichage de trés grand str, utile pour les clés de Diffie Hellman
 
 
 class Dictionnaire:
+    #classe qui permet de crée 2 dictionnaire, un premier donnant le poids pour chaque caractere (lettre) et un deuxième qui est l'inverse
     def __init__(self):
+        #diclettre : {caractere : poids}
+        #dicpoids : {poids : caractere}
         self.diclettre = {}
         self.dicpoids = {}
         self.longueur = 0
 
     def dic(self, Lalphabet, Lpoids):
+        #creation des dictionnaires
         for (i,lettre) in enumerate(Lalphabet):
             self.diclettre[lettre]= Lpoids[i]
         self.dicpoids = {i: j for j, i in self.diclettre.items()}
@@ -18,44 +22,50 @@ class Dictionnaire:
         return "dico lettre : " + self.diclettre + "et dico poids : " + self.dicpoids
 
 def info_dico():
+    #cette fonction crée directement tt les 
     Lalphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","à","é","è","ê","ù"," ","@",".",",",";","?","!","+","-","/","*","0","1","2","3","4","5","6","7","8","9","10"]
     n=len(Lalphabet)
-    Lpoids = [i for i in range(n)]
+    Lpoids = [i for i in range(n)]   
     dicoalphapoids = Dictionnaire()
     dicoalphapoids.dic(Lalphabet,Lpoids)
     return dicoalphapoids
 
 class Message:
+    #classe pour les messages
+    #self.texte, l'information du message
+    #self.dico, le dictionaire du message, dans notre cas c'est l'alphabet latin + caractère @!...
+    #self.cryptage, 1 si on crypte, -1 si on décrypte
+    #ps : j'ai enlever self.clé étant donné que l'on a une classe clé
     def __init__(self,texte,dicoalphapoids=info_dico()):
         self.texte = texte
         self.dico = dicoalphapoids
-        self.clé = ""
         self.cryptage = 1
 
-    def modecryptage(self,on):
+    def modecryptage(self,on):  #ps : c'est clairement pas optimisé comme truc
         if on == True:
             self.cryptage = 1
         else:
             self.cryptage = -1
 
     def cesar(self,clé):
-        self.clé = clé.texte
         mescrypte = ""
         for caractere in self.texte.lower():
             if caractere in self.dico.diclettre:
-                mescrypte += self.dico.dicpoids.get((self.cryptage*int(self.clé) + self.dico.diclettre[caractere])%self.dico.longueur)
+                #on cherche la lettre associé au poids (+- clé + poids associé au caractère) (modulo la longueur de l'alphabet pour passer de z à a par exemple)
+                mescrypte += self.dico.dicpoids.get((self.cryptage*int(clé.texte) + self.dico.diclettre[caractere])%self.dico.longueur)
             else:
+                #si le caractere n'est pas dans la liste des caracteres pris en compte, on le crypte pas
                 mescrypte += caractere
         self.texte = mescrypte
     
     def vigenere(self,clé):
-        self.clé = clé.texte
         mescrypte = ""
-        iclé = 0 
+        iclé = 0  #Ou l'on se situe dans le parcours de la clé (pour le décalage, d'ou iclé += 1)
         lclé = clé.longueur
         for caractere in self.texte.lower():
             if caractere in self.dico.diclettre:
-                decalage = self.dico.diclettre[clé[iclé%lclé]]
+                decalage = self.dico.diclettre[clé.texte[iclé%lclé]]  #decalage = poids du caractere regardé dans la clé
+                #contrairement à césar, le décalage est different à chaque caractere, sinon même principe
                 mescrypte += self.dico.dicpoids.get((self.cryptage*decalage + self.dico.diclettre[caractere])%self.dico.longueur)
             else:
                 mescrypte += caractere
@@ -66,6 +76,8 @@ class Message:
         return 'Message : ' + self.texte
 
 class Clé:
+    #classe pour les clés avec pour information, leur texte (un nombre pour cesar "8" qui sera converti en int dans le code, un mot pour vignere ...)
+    #leurs longueur, et leur type (jsp pourquoi type, ça fait stylé)
     def __init__(self,clé):
         self.texte = clé
         self.type = ""
@@ -76,6 +88,7 @@ class Clé:
 
 def DiffieHellman():
     #Programme pour echanger les clés publics privés
+    #Utilisation du calcul d'expondentielle trés élévee, rendant quasi impossible le chemin inverse avec le log
     try:
         g = int(input("User1 : Veuillez entrez un entier g (entre 2 et 9 :) "))
         a = int(input("User1 : Veuillez entrez un entier a, qui sera votre clé privé (entre 1 et 999): "))
@@ -96,67 +109,28 @@ def DiffieHellman():
 
 
 def main():
-    Lalphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","à","é","è","ê","ù"," ","@",".",",",";","?","!","+","-","/","*","0","1","2","3","4","5","6","7","8","9","10"]
-    Lpoids = [i for i in range(0,len(Lalphabet))]
-    dicoalphapoids = Dictionnaire()
-    dicoalphapoids.dic(Lalphabet,Lpoids)
-    Mail = Message("bonjour je suis frédérique de carglass",dicoalphapoids)
+    #Test pour Cesar
+    print("Cesar")
+
+    Mail = Message("bonjour je suis frédérique de carglass")
     print(Mail)
-    #César
-    print("César")
     clé = Clé("18")
-    Mail.cesar(clé)
-    print(Mail)
-    Mail.modecryptage(False)
-    Mail.cesar(clé)
-    print(Mail)
-    #Vigenere
+    Mail.cesar(clé)  #Crypte le message
+    print(Mail)      #Affiche le message crypté
+    Mail.modecryptage(False)  #Passe en mode décryptage
+    Mail.cesar(clé)  #Decrypte le message crypté
+    print(Mail)      #Affiche le message décrypté = message originelle
+
+    #Test pour Vigenere
     print("Vigenere")
-    Mail2 = Message("Andreas.Clara@donnenousunebonnenote.com",dicoalphapoids)
+
+    Mail2 = Message("Andreas.Clara@donnenousunebonnenote.com")
     print(Mail2)
-    Mail2.vigenere("niouininon")
-    print(Mail2)
-    Mail2.modecryptage(False)
-    Mail2.vigenere("niouininon")
-    print(Mail2)
+    clé2 = Clé("abracadabra")
+    Mail2.vigenere(clé2)     #Crypte le message
+    print(Mail2)             #Affiche le message crypté
+    Mail2.modecryptage(False)#Passe en mode décryptage
+    Mail2.vigenere(clé2)     #Décrypte le message crypté
+    print(Mail2)             #Affiche le message décrypté = message originelle
 
 main()
-
-
-class Image:
-    pass
-
-class AttaqueMessage:
-    def __init__(self,dico):
-        self.typecraquage = ""
-        self.mescrypte = ""
-        self.dico = dico
-    '''
-    def craquagecesar(self,mescrypte,alphabet):
-        # E étant de loin la lettre la plus utilisée en français on cherche le decalage par rapport à E
-        l = len(alphabet)
-        Lf = analysefrequentielle(mescrypte,alphabet)
-        imaxf = 0
-        maxf = 0
-        for (i,f) in enumerate(Lf):
-            if f > maxf:
-                imaxf = i 
-                maxf = f
-        return (imaxf-4)%l  #indice de la lettre la plus recurente - l'indice de e (modulu la longueur de la liste)
-        
-
-    def analysefrequentielle(self,mescrypte,alphabet):
-    l = len(alphabet)
-    dic = dictionaire(alphabet,[i for i in range(0,l)])
-    Lfrequence = [0]*l
-    for caractere in mescrypte.lower():
-        if caractere.isalpha():
-            Lfrequence[dic[caractere]] += 1   #on compte les itérations de chaque caractere
-    for elt in Lfrequence:
-        elt = elt/l #on passe en frequence
-    return Lfrequence
-    '''
-
-
-
-
