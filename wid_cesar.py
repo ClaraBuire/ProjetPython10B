@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cryptageclasse as cc
 
@@ -161,8 +161,14 @@ class Ui_Form(object):
         msg.cesar(cle)
         self.TextOutput.setText(str(msg.texte))
 
+
+def copie(texte): #il faut rajouter un bouton de copie sur le widget
+    """copie le texte de sortie dans le presse papier"""
+    clipboard = QtGui.QGuiApplication.clipboard()
+    clipboard.setText(texte)
+    
+
 def main_cesar():  #sert a relier le programme au widget
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
@@ -170,6 +176,7 @@ def main_cesar():  #sert a relier le programme au widget
     Form.show()
     ui.pushButton_2.clicked.connect(lambda : ui.clear()) #bouton clear
     ui.pushButton.clicked.connect(lambda: ui.cryptage()) #bouton ok
+    #rajouter la commande pour relier le bouton copie au code
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
