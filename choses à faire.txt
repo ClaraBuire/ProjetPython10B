@@ -5,5 +5,5 @@ CHOSES à FAIRE :
 - Codage asymétrique simple
 -Codage asymétrique RSA 
 - Recherche d'autre type Codage
-- ??? ajoutez vos idées ????
+- ??? ajoutez vos idées ???? => manger des crepes / raclette / sushi 
 
