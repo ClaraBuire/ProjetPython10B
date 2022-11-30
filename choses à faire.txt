@@ -2,7 +2,8 @@ CHOSES à FAIRE :
 
 - Codage d'image --> Dj_Lulu
 - IHM --> Rémi
-- Codage asymétrique --> Antho
+- Codage asymétrique simple
+-Codage asymétrique RSA 
 - Recherche d'autre type Codage
 - ??? ajoutez vos idées ????
 
