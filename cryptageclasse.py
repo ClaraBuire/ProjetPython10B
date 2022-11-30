@@ -133,4 +133,7 @@ def main():
     Mail2.vigenere(clé2)     #Décrypte le message crypté
     print(Mail2)             #Affiche le message décrypté = message originelle
 
-main()
+if __name__ == "__main__":
+    main()
+    #merci de laisser ca : ca permet de ne lancer main() que si on lance de module cryptageclasse() 
+    #(ca ne sert pas de lancer le main si on utilise un autre module)
