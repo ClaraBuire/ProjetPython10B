@@ -1,5 +1,4 @@
 from PIL import Image
-import matplotlib.image as mpimg
 import numpy as np
 
 ###Fonction pour texte
