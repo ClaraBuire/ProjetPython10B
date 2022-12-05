@@ -118,7 +118,8 @@ class texteinpicture():
                 k += 1
             i += 1
         image_C = Image.fromarray(C)
-        image_C.show()
+        image_C.save('Desktop/image_m.png','png')
+
         #return C
 
     # def extraction(self):
@@ -174,7 +175,7 @@ class pictureinpicture():
         C = np.zeros((H,L))
         for i in range(H):
             for j in range(L):
-                if self.matriceimg[i,j,1]%2 == 0:
+                if self.matriceimg[i,j,1] %2 == 0:
                     C[i,j] = 0
                 else:
                     C[i,j] = 255
@@ -192,9 +193,9 @@ class pictureinpicture():
                     C[i,j,1] = transfo(self.matriceimg[i,j,1], bit)
                 else:
                     C[i,j,1] = transfo(self.matriceimg[i,j,1],1)
-                image_C = Image.fromarray(C)
-                image_C.show()
-                return C
+        image_C = Image.fromarray(C)
+        image_C.show()
+        image_C.save('Desktop/image_m.png','png')
 
 # class main(texteinpicture, pictureinpicture):
 #     message = input("Veuillez choisir si vous voulez coder/décoder un texte dans une image(taper t) ou une image(taper i) ")
@@ -253,6 +254,7 @@ class main(texteinpicture, pictureinpicture):
             mon_image2 = Image.open(matrice2)
             Mat2 = np.array(mon_image2)
             camoufimg = pictureinpicture(Mat2,Mat)
+            #camoufimg.save('Desktop\image_m.png','png')
             print(camoufimg.camouflage_image())
         elif message2 == 'r':
             matrice = input("Entrez le chemin de votre image support")
