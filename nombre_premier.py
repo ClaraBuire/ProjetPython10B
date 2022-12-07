@@ -1,7 +1,5 @@
 #### utiliser la methode du test de millier-rabin pour génerer une grande nombre premier
-
 n=353
-
 def cal_puissance(n):
     ### ce fonction calcul le nombre de fois que n peut diviser par 2
     s = -1
@@ -10,7 +8,7 @@ def cal_puissance(n):
         s += 1
     return s
 
-cal_puissance(n)
+cal_puissance(n)d
         
 
 #### utiliser la methode du test de millier-rabin pour génerer une grande nombre premier

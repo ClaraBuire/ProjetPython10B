@@ -7,9 +7,12 @@ CHOSES à FAIRE :
 - Recherche d'autre type Codage
 - ??? ajoutez vos idées ???? => manger des crepes / raclette / sushi 
 
-A faire pour terminer :)
+
+
+
+A faire pour terminer :) !!!!!!!!!
 - interface cesar et vinaigre à combiner ensemble
-- codage image: enregistrer l'image décodé automatiquement
+- codage image: enregistrer l'image codé automatiquement ==> c'est fait ;)
 - interface graphique pour codage image
-- combiner codage asymetrique avec cesar ou vinaigre
+- combiner codage asymetrique RSA avec cesar ou vinaigre
 -
