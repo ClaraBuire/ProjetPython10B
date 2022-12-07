@@ -11,8 +11,7 @@ CHOSES à FAIRE :
 
 
 A faire pour terminer :) !!!!!!!!!
-- interface cesar et vinaigre à combiner ensemble
+- organiser nos codes
+- interface cesar , vinaigre, et RSA à combiner ensemble
 - codage image: enregistrer l'image codé automatiquement ==> c'est fait ;)
 - interface graphique pour codage image
-- combiner codage asymetrique RSA avec cesar ou vinaigre
--
