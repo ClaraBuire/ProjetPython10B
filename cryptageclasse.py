@@ -1,4 +1,5 @@
 import sys
+import cle
 sys.set_int_max_str_digits(1000000) #permet l'affichage de trés grand str, utile pour les clés de Diffie Hellman
 
 
@@ -75,37 +76,11 @@ class Message:
     def __repr__(self):
         return 'Message : ' + self.texte
 
-class Clé:
-    #classe pour les clés avec pour information, leur texte (un nombre pour cesar "8" qui sera converti en int dans le code, un mot pour vignere ...)
-    #leurs longueur, et leur type (jsp pourquoi type, ça fait stylé)
-    def __init__(self,clé):
-        self.texte = clé
-        self.type = ""
-        self.longueur = len(clé)
-
-    def __repr__(self):
-        return self.texte
-
-def DiffieHellman():
-    #Programme pour echanger les clés publics privés
-    #Utilisation du calcul d'expondentielle trés élévee, rendant quasi impossible le chemin inverse avec le log
-    try:
-        g = int(input("User1 : Veuillez entrez un entier g (entre 2 et 9 :) "))
-        a = int(input("User1 : Veuillez entrez un entier a, qui sera votre clé privé (entre 1 et 999): "))
-        A = g**a   #clé public de user1
-        print("User2 : Voici la clé public de User1 : ",A,"et l'entier g choisi (entre 1 et 999) : ",g)
-        b = int(input("User2 : Veuillez entrez un entier b, qui sera votre clé privé :"))
-        B = g**b
-        print("User1 : Voici la clé public de User2 : B = ",B)
-        Xuser1 = Clé(str(B**a))
-        print("User1 : Voici la clé secrete partagé avec User2 :",Xuser1)
-        Xuser2 = Clé(str(A**b))
-        print("User2 : Voici la clé secrete partagé avec User1 :",Xuser2)
-        #Xuser1 = Xuser2 mais chaqu'un fait son propre calcul avec ces infos
-        return Xuser1,Xuser2
-    except TypeError:
-        print("Erreur : Veuillez recommencez le programme d'échanges de clé")
-
+    def chiffrementRSA(self,cle):
+        if cle.type == "public":
+            pass
+        elif cle.type == "prive":
+            pass
 
 
 def main():
@@ -114,7 +89,7 @@ def main():
 
     Mail = Message("bonjour je suis frédérique de carglass")
     print(Mail)
-    clé = Clé("18")
+    clé = cle.Clé("18")
     Mail.cesar(clé)  #Crypte le message
     print(Mail)      #Affiche le message crypté
     Mail.modecryptage(False)  #Passe en mode décryptage
@@ -126,12 +101,15 @@ def main():
 
     Mail2 = Message("Andreas.Clara@donnenousunebonnenote.com")
     print(Mail2)
-    clé2 = Clé("abracadabra")
+    clé2 = cle.Clé("akz@rpoqsojrsp")
     Mail2.vigenere(clé2)     #Crypte le message
     print(Mail2)             #Affiche le message crypté
     Mail2.modecryptage(False)#Passe en mode décryptage
     Mail2.vigenere(clé2)     #Décrypte le message crypté
     print(Mail2)             #Affiche le message décrypté = message originelle
+
+    
+
 
 if __name__ == "__main__":
     main()

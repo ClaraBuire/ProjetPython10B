@@ -48,7 +48,7 @@ def euclideetendu(b,n):
 
     
     
-def chiffrementRSA(ficher):
+def RSA(ficher):
     #(n,e) la clé publique
     #(n,d) la clé privée généré ici
     p = entierhasard(ficher)
@@ -59,20 +59,15 @@ def chiffrementRSA(ficher):
     e = int(input("Donnez un chiffre e, premier avec phin, s'il ne l'est pas on trouvera un chiffre proche de e premier avec phin"))
     while pgcd(e,phin) != 1:
         e += 1 
-    print(f"Voici votre clé publique : n = {n} et e = {e}")
     d = euclideetendu(e,phin)
-    print(f"Voici votre clé privée : n = {n} et d = {d}")
+    return n,e,d
 
-def main():
     '''
     key = RSA.generate(2048) # key contient la clé pivée
     # key.publickey() donne la clé public
     print(key)
     '''
 
-    ficher = "328000000.txt"
-    chiffrementRSA(ficher)
-main()
 
 
 
