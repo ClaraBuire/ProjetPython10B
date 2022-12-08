@@ -1,6 +1,6 @@
 #De base dans cryptage classe mais ça n'a rien à voir donc création de attaque.py
 #mais tout est à faire
-import cryptageclasse
+import cryptagetexte
 
 def craquagecesar(mescrypte,alphabet):
     # E étant de loin la lettre la plus utilisée en français on cherche le decalage par rapport à E
@@ -17,7 +17,7 @@ def craquagecesar(mescrypte,alphabet):
 
 def analysefrequentielle(mescrypte,alphabet):
     l = len(alphabet)
-    dic = cryptageclasse.dictionaire(alphabet,[i for i in range(0,l)])
+    dic = cryptagetexte.dictionaire(alphabet,[i for i in range(0,l)])
     Lfrequence = [0]*l
     for caractere in mescrypte.lower():
         if caractere.isalpha():
