@@ -62,11 +62,6 @@ def RSA(ficher):
     d = euclideetendu(e,phin)
     return n,e,d
 
-    '''
-    key = RSA.generate(2048) # key contient la clé pivée
-    # key.publickey() donne la clé public
-    print(key)
-    '''
 
 
 

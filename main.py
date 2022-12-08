@@ -18,9 +18,9 @@ def main():
     #Test pour Vigenere
     print("Vigenere")
 
-    Mail2 = cryptagetexte.Message("Andreas.Clara@donnenousunebonnenote.com")
+    Mail2 = cryptagetexte.Message("jeanmichealbonemeal")
     print(Mail2)
-    clé2 = cle.Clé("akz@rpoqsojrsp")
+    clé2 = cle.Clé("akgigrià")
     Mail2.vigenere(clé2)     #Crypte le message
     print(Mail2)             #Affiche le message crypté
     Mail2.modecryptage(False)#Passe en mode décryptage
