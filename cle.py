@@ -1,4 +1,9 @@
-import RSAcle
+import random as r
+#Le chiffrement RSA est asymétrique : il utilise une paire de clés (des nombres entiers)
+#  composée d'une clé publique pour chiffrer et d'une clé privée pour déchiffrer des données confidentielles.
+#Une condition indispensable est qu'il soit « calculatoirement impossible » de déchiffrer à l'aide de la seule clé publique
+
+
 class Clé:
     #classe pour les clés avec pour information, leur texte (un nombre pour cesar "8" qui sera converti en int dans le code, un mot pour vignere ...)
     #leurs longueur, et leur type (jsp pourquoi type, ça fait stylé)
@@ -32,11 +37,61 @@ def DiffieHellman():
     except TypeError:
         print("Erreur : Veuillez recommencez le programme d'échanges de clé")
 
-def cleRSA(ficher):
-    n,e,d = RSAcle.RSA(ficher)
+def entierhasard(ficher):
+    ligne = r.randint(0,40000)
+    with open(ficher,'r') as f:
+        for (i,line) in enumerate(f):
+            if i == ligne:
+                return int(line)
+def pgcd(a,b):
+    while b != 0:
+        a,b=b,a%b
+    return a
+
+def mod_inverse1(x,m):
+    for n in range(m):
+        if (x * n) % m == 1:
+            return n
+
+def euclideetendu(b,n):
+    n0 = n
+    b0 = b
+    t0 = 0
+    binv = 1
+    q = n0 // b0
+    r = n0 - q * b0
+    while r > 0 :
+        temp = t0 - q * binv
+        if temp >= 0:
+            temp = temp % n
+        else:
+            temp = n - (-temp%n)
+        t0 = binv
+        binv = temp
+        n0 = b0
+        b0 = r
+        q = n0 // b0
+        r = n0 - q * b0
+    if b0 != 1:
+        return None
+    else :
+        return binv
+    
+def RSA(ficher):
+    #(n,e) la clé publique
+    #(n,d) la clé privée généré ici
+    p = entierhasard(ficher)
+    q = entierhasard(ficher)
+    n = p * q
+    phin = (p-1)*(q-1)
+    #e doit etre inferieur a phin et premier entre eux
+    e = int(input("Donnez un chiffre e, premier avec phin, s'il ne l'est pas on trouvera un chiffre proche de e premier avec phin"))
+    while pgcd(e,phin) != 1:
+        e += 1 
+    d = euclideetendu(e,phin)
+    n,e,d = RSA(ficher)
     clepublic = Clé(e)
     clepublic.type = "public"
     cleprive = Clé(d)
     cleprive.type = "privé"
-    return clepublic,cleprive
-    
+    return n,clepublic,cleprive
