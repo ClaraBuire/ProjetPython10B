@@ -1,6 +1,8 @@
 ###Fonction pour texte
 #Conversion entier binaire
 #fonction pour coder binaire d'un entier
+N = 8
+
 def binaire(nombre):
     code = ''
     for k in range(8):

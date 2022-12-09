@@ -6,7 +6,7 @@ def main():
     #Test pour Cesar
     print("Cesar")
 
-    Mail = cryptagetexte.Message("bonjour je suis frédérique de carglass")
+    Mail = cryptagetexte.Message("bonjour je suis frederique de carglass")
     print(Mail)
     clé = cle.Clé("18")
     Mail.cesar(clé)  #Crypte le message
