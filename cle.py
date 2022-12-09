@@ -6,9 +6,10 @@ import random as r
 
 class Clé:
     #classe pour les clés avec pour information, leur texte (un nombre pour cesar "8" qui sera converti en int dans le code, un mot pour vignere ...)
-    #leurs longueur, et leur type (jsp pourquoi type, ça fait stylé)
+    #leurs longueur, et pour les clés RSA leur type : public ou privé avec leurs modulo
     def __init__(self,clé):
         self.texte = str(clé)
+        self.modulo = 1   #utile que pour RSA
         self.type = ""
         self.longueur = len(clé)
 
@@ -38,6 +39,7 @@ def DiffieHellman():
         print("Erreur : Veuillez recommencez le programme d'échanges de clé")
 
 def entierhasard(ficher):
+    #parmi un ficher de plusieurs millers nombre premiers, on selectionne un au hasard
     ligne = r.randint(0,40000)
     with open(ficher,'r') as f:
         for (i,line) in enumerate(f):
@@ -48,12 +50,8 @@ def pgcd(a,b):
         a,b=b,a%b
     return a
 
-def mod_inverse1(x,m):
-    for n in range(m):
-        if (x * n) % m == 1:
-            return n
-
 def euclideetendu(b,n):
+    #permet de trouver l'inverse modulaire de b module n, (cad trouver x dans b*x = 1 [n])
     n0 = n
     b0 = b
     t0 = 0
@@ -89,9 +87,10 @@ def RSA(ficher):
     while pgcd(e,phin) != 1:
         e += 1 
     d = euclideetendu(e,phin)
-    n,e,d = RSA(ficher)
     clepublic = Clé(e)
     clepublic.type = "public"
+    clepublic.modulo = n
     cleprive = Clé(d)
     cleprive.type = "privé"
-    return n,clepublic,cleprive
+    cleprive.modulo = n
+    return clepublic,cleprive
