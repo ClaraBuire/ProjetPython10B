@@ -8,7 +8,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import cryptageclasse as cc
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt, QSize, QRect
+#import cryptageclasse as cc
 import sys
 
 
@@ -196,6 +198,7 @@ def main_cesar():
     ui.ClearButton.clicked.connect(lambda : ui.clear()) #bouton clear
     ui.OKButton.clicked.connect(lambda: ui.cryptage()) #bouton ok
     ui.CopyButton.clicked.connect(lambda : ui.copie()) #bouton copie
+    #ui.TextOutput.setPixmap(QPixmap("Capture d'écran_20221213_172611.png").scaled(QSize(100,100)))
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
