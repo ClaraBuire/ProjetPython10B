@@ -8,7 +8,7 @@ class texteinpicture():
         self.M = M
         self.phrase = phrase
 
-    def camouflage(self):
+    def camouflage(self,chemin_acces='Desktop/image_m.png'):
         H,L = self.M.shape[0],self.M.shape[1]
         C = np.copy(self.M)
         code = ascii.codage_binaire(self.phrase)
@@ -22,7 +22,7 @@ class texteinpicture():
                 k += 1
             i += 1
         image_C = Image.fromarray(C)
-        image_C.save('Desktop/image_m.png','png')
+        image_C.save(chemin_acces,'png')
 
 
 
@@ -73,7 +73,7 @@ class pictureinpicture():
         image_C = Image.fromarray(C)
         image_C.show()
     #camoufle la matrice I d'une image en noir et blanc
-    def camouflage_image(self):
+    def camouflage_image(self, chemin_acces='Desktop/image_m.png'):
         HM,LM = self.matriceimg.shape[0], self.matriceimg.shape[1]
         HI, LI = self.imageacacher.shape[0], self.imageacacher.shape[1]
         C = np.copy(self.matriceimg)
@@ -86,7 +86,7 @@ class pictureinpicture():
                     C[i,j,1] = ascii.transfo(self.matriceimg[i,j,1],1)
         image_C = Image.fromarray(C)
         image_C.show()
-        image_C.save('Desktop/image_m.png','png')
+        image_C.save(chemin_acces,'png')
 
 
 class main(texteinpicture, pictureinpicture):
