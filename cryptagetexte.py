@@ -47,9 +47,28 @@ class Message:
         return 'Message : ' + self.texte
 
     def chiffrementRSA(self,cle):
-        if cle.type == "public":
-            pass
-        elif cle.type == "prive":
-            pass
+    #if cle.type == "public":
+        #chiffrement
+        mesnum = ""
+        mescrypte = ""
+        for caractere in self.texte:
+            mesnum += f"{ord(caractere)}".rjust(4, '0')   #on transforme chaque caractere en un digit de 4 chiffre pour effectuer l'operation
+        print(mesnum)
+        mestransition = str((int(mesnum)**int(cle.texte))%cle.modulo) #C = M**e [n]   
+        print(mestransition)
+        i = 0
+        while len(mestransition) != 0:
+            mescrypte += f"{chr(int(mestransition[i:i+5]))}"
+            mestransition = mestransition[i+4:]
+            i += 4
+        return mescrypte
+    #elif cle.type == "prive":
+        #dechiffrement
+        
+rsa = cle.Clé("2551")
+rsa.modulo = 8874
+cookie = Message("yolo les pates bolo")
+print(cookie.chiffrementRSA(rsa))
 
+           
 
