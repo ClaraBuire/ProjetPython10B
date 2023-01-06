@@ -605,7 +605,7 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.RSA_RSA_IntInput.setFont(font)
-        self.RSA_RSA_IntInput.setMaximum(999)
+        self.RSA_RSA_IntInput.setMaximum(2147483647)
         self.RSA_RSA_IntInput.setObjectName("RSA_RSA_IntInput")
         self.horizontalLayout_8.addWidget(self.RSA_RSA_IntInput)
         self.verticalLayout_2.addLayout(self.horizontalLayout_8)
@@ -926,6 +926,21 @@ class Ui_Form(object):
         self.RSA_PublicKeyOutput.setText('')
         self.RSA_PrivateKeyOutput.setText('')
 
+    def int_alt(self):
+        """renvoie un entier au hasard"""
+        self.RSA_RSA_IntInput.setValue(int(cle.entierhasard('328000000.txt')))
+
+
+    def diffielman(self):
+        """gère les clés de Diffie Helman"""
+        g=int(self.RSA_u1_int_input.value())
+        a=int(self.RSA_u1_privateKeyInput.value())
+        #A=g**a
+        b=int(self.RSA_u2_PrivateKeyInput.value())
+        #B=g**b
+        self.RSA_u1_SecretKeOutput.setText(str(g**a**b))
+        self.RSA_u2_SecretKeyOutput.setText(str(g**a**b))
+
 
 
 
@@ -952,5 +967,7 @@ if __name__ == "__main__":
     ui.RSA_PrivateKeyCopyButton.clicked.connect(lambda : ui.copie_privateexit())
     ui.RSA_GeneralClearButton.clicked.connect(lambda : ui.clear_cles())
     ui.OKButton.clicked.connect(lambda : ui.main_cryptoClassique())
+    ui.RSA_RSA_IntGenerateButton.clicked.connect(lambda : ui.int_alt())
+    ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.diffielman())
 
     sys.exit(app.exec_())
