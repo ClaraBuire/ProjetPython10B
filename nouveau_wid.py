@@ -941,7 +941,11 @@ class Ui_Form(object):
         self.RSA_u1_SecretKeOutput.setText(str(g**a**b))
         self.RSA_u2_SecretKeyOutput.setText(str(g**a**b))
 
-
+    def clersa(self):
+        """gère les clés RSA"""
+        public,private=cle.RSA('328000000.txt',self.RSA_RSA_IntInput.value())
+        self.RSA_PublicKeyOutput.setText(public.texte)
+        self.RSA_PrivateKeyOutput.setText(private.texte)
 
 
 
@@ -969,5 +973,6 @@ if __name__ == "__main__":
     ui.OKButton.clicked.connect(lambda : ui.main_cryptoClassique())
     ui.RSA_RSA_IntGenerateButton.clicked.connect(lambda : ui.int_alt())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.diffielman())
+    ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.clersa())
 
     sys.exit(app.exec_())

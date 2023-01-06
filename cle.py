@@ -11,7 +11,7 @@ class Clé:
         self.texte = str(clé)
         self.modulo = 1   #utile que pour RSA
         self.type = ""
-        self.longueur = len(clé)
+        self.longueur = len(str(clé))
 
     def __repr__(self):
         return "clé" + self.texte
@@ -75,7 +75,7 @@ def euclideetendu(b,n):
     else :
         return binv
     
-def RSA(ficher):
+def RSA(ficher,e):
     #(n,e) la clé publique
     #(n,d) la clé privée généré ici
     p = entierhasard(ficher)
@@ -83,7 +83,7 @@ def RSA(ficher):
     n = p * q
     phin = (p-1)*(q-1)
     #e doit etre inferieur a phin et premier entre eux
-    e = int(input("Donnez un chiffre e, premier avec phin, s'il ne l'est pas on trouvera un chiffre proche de e premier avec phin"))
+    #e = int(input("Donnez un chiffre e, premier avec phin, s'il ne l'est pas on trouvera un chiffre proche de e premier avec phin"))
     while pgcd(e,phin) != 1:
         e += 1 
     d = euclideetendu(e,phin)
