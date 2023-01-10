@@ -8,7 +8,7 @@ class texteinpicture():
         self.M = M
         self.phrase = phrase
 
-    def camouflage(self):
+    def camouflage(self,chemin_acces='Desktop/image_m.png'):
         H,L = self.M.shape[0],self.M.shape[1]
         C = np.copy(self.M)
         code = ascii.codage_binaire(self.phrase)
@@ -22,7 +22,7 @@ class texteinpicture():
                 k += 1
             i += 1
         image_C = Image.fromarray(C)
-        image_C.save('Desktop/image_m.png','png')
+        image_C.save(chemin_acces,'png')
 
 
 
@@ -61,7 +61,7 @@ class pictureinpicture():
         self.imageacacher = imageacacher
     #Camouflage/Extraction d'une image dans une autre image
     #Extraction d'une image en noir et blanc d'une image support
-    def extraction_image(self):
+    def extraction_image(self,chemin_acces='Desktop/image_m.png'):
         H,L = self.matriceimg.shape[0],self.matriceimg.shape[1]
         C = np.zeros((H,L))
         for i in range(H):
@@ -72,8 +72,9 @@ class pictureinpicture():
                     C[i,j] = 255
         image_C = Image.fromarray(C)
         image_C.show()
+        image_C.save(chemin_acces,'png')
     #camoufle la matrice I d'une image en noir et blanc
-    def camouflage_image(self):
+    def camouflage_image(self, chemin_acces='Desktop/image_m.png'):
         HM,LM = self.matriceimg.shape[0], self.matriceimg.shape[1]
         HI, LI = self.imageacacher.shape[0], self.imageacacher.shape[1]
         C = np.copy(self.matriceimg)
@@ -86,14 +87,14 @@ class pictureinpicture():
                     C[i,j,1] = ascii.transfo(self.matriceimg[i,j,1],1)
         image_C = Image.fromarray(C)
         image_C.show()
-        image_C.save('Desktop/image_m.png','png')
+        image_C.save(chemin_acces,'png')
 
 
 class main(texteinpicture, pictureinpicture):
     message = input("Veuillez choisir si vous voulez coder/décoder un texte dans une image(taper t) ou une image(taper i) ")
     if message == 'i':
         message2 = input("Veuillez choisir si vous voulez cacher une image dans l'image support(taper c) ou bien reveler une image cacher(taper r)")
-        if message2 == 'c':
+        if message2 == 'c': #cryptage
             matrice = input("Entrez le chemin de votre image en noir et blanc à cacher")
             mon_image = Image.open(matrice)
             Mat = np.array(mon_image)
