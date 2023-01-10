@@ -292,11 +292,11 @@ class Ui_Form(object):
         self.Img_SupportImageInput.setFont(font)
         self.Img_SupportImageInput.setObjectName("Img_SupportImageInput")
         self.horizontalLayout_22.addWidget(self.Img_SupportImageInput)
-        self.BrowsSupportImageButton = QtWidgets.QPushButton(self.layoutWidget1)
-        self.BrowsSupportImageButton.setMinimumSize(QtCore.QSize(93, 0))
-        self.BrowsSupportImageButton.setMaximumSize(QtCore.QSize(93, 16777215))
-        self.BrowsSupportImageButton.setObjectName("BrowsSupportImageButton")
-        self.horizontalLayout_22.addWidget(self.BrowsSupportImageButton)
+        #self.BrowsSupportImageButton = QtWidgets.QPushButton(self.layoutWidget1)
+        #self.BrowsSupportImageButton.setMinimumSize(QtCore.QSize(93, 0))
+        #self.BrowsSupportImageButton.setMaximumSize(QtCore.QSize(93, 16777215))
+        #self.BrowsSupportImageButton.setObjectName("BrowsSupportImageButton")
+        #self.horizontalLayout_22.addWidget(self.BrowsSupportImageButton)
         self.verticalLayout_8.addLayout(self.horizontalLayout_22)
         self.label_31 = QtWidgets.QLabel(self.layoutWidget1)
         self.label_31.setMinimumSize(QtCore.QSize(0, 20))
@@ -324,11 +324,11 @@ class Ui_Form(object):
         self.Img_SaveOutputImage.setFont(font)
         self.Img_SaveOutputImage.setObjectName("Img_SaveOutputImage")
         self.horizontalLayout_23.addWidget(self.Img_SaveOutputImage)
-        self.BrowsOutputImageButton = QtWidgets.QPushButton(self.layoutWidget1)
-        self.BrowsOutputImageButton.setMinimumSize(QtCore.QSize(93, 0))
-        self.BrowsOutputImageButton.setMaximumSize(QtCore.QSize(93, 16777215))
-        self.BrowsOutputImageButton.setObjectName("BrowsOutputImageButton")
-        self.horizontalLayout_23.addWidget(self.BrowsOutputImageButton)
+        #self.BrowsOutputImageButton = QtWidgets.QPushButton(self.layoutWidget1)
+        #self.BrowsOutputImageButton.setMinimumSize(QtCore.QSize(93, 0))
+        #self.BrowsOutputImageButton.setMaximumSize(QtCore.QSize(93, 16777215))
+        #self.BrowsOutputImageButton.setObjectName("BrowsOutputImageButton")
+        #self.horizontalLayout_23.addWidget(self.BrowsOutputImageButton)
         self.verticalLayout_8.addLayout(self.horizontalLayout_23)
         self.horizontalLayout_24 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_24.setObjectName("horizontalLayout_24")
@@ -760,10 +760,10 @@ class Ui_Form(object):
         self.label_29.setText(_translate("Form", "Entrée cryptage :"))
         self.label_21.setText(_translate("Form", "Dans le cas d\'une image (NOIR ET BLANC, format PNG uniquement), entrer le chemin d\'accès à l\'image"))
         self.label_8.setText(_translate("Form", "Entrée chemin image support :"))
-        self.BrowsSupportImageButton.setText(_translate("Form", "Browse"))
+        #self.BrowsSupportImageButton.setText(_translate("Form", "Browse"))
         self.label_31.setText(_translate("Form", "Image PNG uniquement"))
         self.label_12.setText(_translate("Form", "Chemin enregistrement image sortie :"))
-        self.BrowsOutputImageButton.setText(_translate("Form", "Browse"))
+        #self.BrowsOutputImageButton.setText(_translate("Form", "Browse"))
         self.label_11.setText(_translate("Form", "Sortie :"))
         self.CleaButton_2.setText(_translate("Form", "CLEAR"))
         self.CopyButton_2.setText(_translate("Form", "COPIE SORTIE"))
@@ -814,8 +814,10 @@ class Ui_Form(object):
             self.cesar_vigenere(True)
         if self.CC_CryptageTypeInput.currentIndex()==1:
             self.cesar_vigenere(False)
-        else:
+        if self.CC_CryptageTypeInput.currentIndex()==2:
             self.rsa()
+        else:
+            self.CC_TextOutput.setText(str(self.CC_CryptageTypeInput.value()) + '3')
 
     def cesar_vigenere(self, pos):
         """crypte ou décrypte en césar. si pos=True : cesar, sinon : vigenere"""
@@ -857,41 +859,52 @@ class Ui_Form(object):
         self.Img_CryptageInput.setText('')
         self.Img_SupportImageInput.setText('')
         self.Img_SaveOutputImage.setText('')
-        self.Img_GlobalOutput.setText('')
+        self.Img_GlobalOutput.setText(' ')
 
     def cryptageimages(self):
         """description"""
-        if self.ModeInput_3.currentIndex() == 1: #si l'entrée est une image
-            if self.ModeInput_2.currentIndex() == 0: #si on veut cacher l'image dans l'image
-                mon_image = Image.open(self.Img_CryptageInput.text())
-                Mat = np.array(mon_image)
-                mon_image2 = Image.open(self.Img_SupportImageInput.text())
-                Mat2 = np.array(mon_image2)
-                camoufimg = ci.pictureinpicture(Mat2,Mat)
-                if self.Img_SaveOutputImage.text() == '':
-                    self.Img_GlobalOutput.setPixmap(QPixmap(camoufimg.camouflage_image()).scaled(QSize(100,100)))
-                else:
-                    self.Img_GlobalOutput.setPixmap(QPixmap(camoufimg.camouflage_image(self.Img_SaveOutputImage.text())).scaled(QSize(100,100)))
-            else: #si on veut cacher un texte dans une image
-                mon_image = Image.open(self.Img_SupportImageInput.text())
-                mat = np.array(mon_image)
-                revelimg = ci.pictureinpicture(mat,np.zeros(5))
-                self.Img_GlobalOutput.setPixmap(QPixmap(revelimg.extraction_image(self.Img_SaveOutputImage.text()))).scaled(QSize(100,100))
+        try :
+            if self.ModeInput_3.currentIndex() == 1: #si l'entrée est une image
+                if self.ModeInput_2.currentIndex() == 0: #si on veut cacher l'image dans l'image
+                    mon_image = Image.open(str(self.Img_CryptageInput.text()))
+                    Mat = np.array(mon_image)
+                    mon_image2 = Image.open(str(self.Img_SupportImageInput.text()))
+                    Mat2 = np.array(mon_image2)
+                    camoufimg = ci.pictureinpicture(Mat2,Mat)
+                    if self.Img_SaveOutputImage.text() == '':
+                        sortie = camoufimg.camouflage_image()
+                        self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+                    else:
+                        sortie = camoufimg.camouflage_image(str(self.Img_SaveOutputImage.text()))
+                        self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+
+                else: #si on veut sortir une image d'une image
+                    mon_image = Image.open(self.Img_SupportImageInput.text())
+                    mat = np.array(mon_image)
+                    revelimg = ci.pictureinpicture(mat,np.zeros(5))
+                    sortie = revelimg.extraction_image(str(self.Img_SaveOutputImage.text()))
+                    self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+            
+            else: #si l'entrée est un texte
+                if self.ModeInput_2.currentIndex() == 1: #mode revelation
+                    mon_image = Image.open(self.Img_SupportImageInput.text())
+                    Mat = np.array(mon_image)
+                    revelimg = ci.texteinpicture('',Mat)
+                    sortie = revelimg.extraction()
+                    ui.Img_GlobalOutput.setText(str(sortie))
+                else: #mode cryptage
+                    mon_image = Image.open(self.Img_SupportImageInput.text())
+                    Mat = np.array(mon_image)
+                    cachimg = ci.texteinpicture(self.Img_CryptageInput.text(),Mat)
+                    sortie = cachimg.camouflage(self.Img_SaveOutputImage.text())
+                    self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
         
-        else: #si l'entrée est un texte
-            if self.ModeInput_2.currentIndex() == 1: #mode revelation
-                mon_image = Image.open(self.Img_SupportImageInput.text())
-                Mat = np.array(mon_image)
-                revelimg = ci.texteinpicture('',Mat)
-                self.Img_GlobalOutput.setPixmap(QPixmap(revelimg.extraction())).scaled(QSize(100,100))
-                #probleme enregistrement image
 
-            else:
-                mon_image = Image.open(self.Img_SupportImageInput.text())
-                Mat = np.array(mon_image)
-                cachimg = ci.texteinpicture(self.Img_CryptageInput.text(),Mat)
-                self.Img_GlobalOutput.setPixmap(QPixmap(cachimg.camouflage(self.Img_SaveOutputImage.text()))).scaled(QSize(100,100))
+        except FileNotFoundError:
+            self.Img_GlobalOutput.setText('##ERREUR FICHIER')
 
+        #except Exception:
+            #self.Img_GlobalOutput.setText('##ERROR 404')
 
 ##Page 3 - Clés
 
@@ -959,10 +972,12 @@ if __name__ == "__main__":
     #Page 1
     ui.CopyButton.clicked.connect(lambda : ui.copie_cc())
     ui.ClearButton.clicked.connect(lambda : ui.clear_cc())
+    ui.OKButton.clicked.connect(lambda : ui.main_cryptoClassique())
 
     #Page 2
     ui.CopyButton_2.clicked.connect(lambda : ui.copie_ci())
     ui.CleaButton_2.clicked.connect(lambda : ui.clear_ci())
+    ui.OKButton_2.clicked.connect(lambda : ui.cryptageimages())
 
     #Page 3
     ui.RSA_u1_CopyKeyButton.clicked.connect(lambda : ui.copie_keyu1())
@@ -970,9 +985,9 @@ if __name__ == "__main__":
     ui.RSA_PublicKeyCopyButton.clicked.connect(lambda : ui.copie_publicexit())
     ui.RSA_PrivateKeyCopyButton.clicked.connect(lambda : ui.copie_privateexit())
     ui.RSA_GeneralClearButton.clicked.connect(lambda : ui.clear_cles())
-    ui.OKButton.clicked.connect(lambda : ui.main_cryptoClassique())
     ui.RSA_RSA_IntGenerateButton.clicked.connect(lambda : ui.int_alt())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.diffielman())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.clersa())
+    
 
     sys.exit(app.exec_())

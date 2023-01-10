@@ -8,7 +8,7 @@ class texteinpicture():
         self.M = M
         self.phrase = phrase
 
-    def camouflage(self,chemin_acces='Desktop/image_m.png'):
+    def camouflage(self,chemin_acces='Users\remim\Downloads\test3.png'):
         H,L = self.M.shape[0],self.M.shape[1]
         C = np.copy(self.M)
         code = ascii.codage_binaire(self.phrase)
@@ -23,6 +23,7 @@ class texteinpicture():
             i += 1
         image_C = Image.fromarray(C)
         image_C.save(chemin_acces,'png')
+        return chemin_acces
 
 
 
@@ -61,7 +62,7 @@ class pictureinpicture():
         self.imageacacher = imageacacher
     #Camouflage/Extraction d'une image dans une autre image
     #Extraction d'une image en noir et blanc d'une image support
-    def extraction_image(self,chemin_acces='Desktop/image_m.png'):
+    def extraction_image(self,chemin_acces='Users\remim\Downloads\test3.png'):
         H,L = self.matriceimg.shape[0],self.matriceimg.shape[1]
         C = np.zeros((H,L))
         for i in range(H):
@@ -71,10 +72,13 @@ class pictureinpicture():
                 else:
                     C[i,j] = 255
         image_C = Image.fromarray(C)
-        image_C.show()
+        image_C=image_C.convert('L')
+        #image_C.show()
         image_C.save(chemin_acces,'png')
+        return chemin_acces
     #camoufle la matrice I d'une image en noir et blanc
-    def camouflage_image(self, chemin_acces='Desktop/image_m.png'):
+    
+    def camouflage_image(self, chemin_acces='Users\remim\Downloads\test3.png'):
         HM,LM = self.matriceimg.shape[0], self.matriceimg.shape[1]
         HI, LI = self.imageacacher.shape[0], self.imageacacher.shape[1]
         C = np.copy(self.matriceimg)
@@ -86,8 +90,9 @@ class pictureinpicture():
                 else:
                     C[i,j,1] = ascii.transfo(self.matriceimg[i,j,1],1)
         image_C = Image.fromarray(C)
-        image_C.show()
+        #image_C.show()
         image_C.save(chemin_acces,'png')
+        return chemin_acces
 
 if __name__ == "__main__":
     class main(texteinpicture, pictureinpicture):
