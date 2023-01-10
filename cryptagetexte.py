@@ -52,6 +52,7 @@ class Message:
         self.texte = convertisseurtextnumero(nombrecryp,True)
 
 def convertisseurtextnumero(texte, num=True):
+    #Converti un texte en un nombre en base 10 et inversement pour le chiffrage RSA
     if num:
         #nombre au texte
         charactere = []
