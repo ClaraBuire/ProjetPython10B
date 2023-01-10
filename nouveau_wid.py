@@ -816,8 +816,7 @@ class Ui_Form(object):
             self.cesar_vigenere(False)
         if self.CC_CryptageTypeInput.currentIndex()==2:
             self.rsa()
-        else:
-            self.CC_TextOutput.setText(str(self.CC_CryptageTypeInput.value()) + '3')
+
 
     def cesar_vigenere(self, pos):
         """crypte ou décrypte en césar. si pos=True : cesar, sinon : vigenere"""
