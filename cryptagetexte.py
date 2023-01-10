@@ -46,29 +46,28 @@ class Message:
     def __repr__(self):
         return 'Message : ' + self.texte
 
-    def chiffrementRSA(self,cle):
-    #if cle.type == "public":
-        #chiffrement
-        mesnum = ""
-        mescrypte = ""
-        for caractere in self.texte:
-            mesnum += f"{ord(caractere)}".rjust(4, '0')   #on transforme chaque caractere en un digit de 4 chiffre pour effectuer l'operation
-        print(mesnum)
-        mestransition = str((int(mesnum)**int(cle.texte))%cle.modulo) #C = M**e [n]   
-        print(mestransition)
-        i = 0
-        while len(mestransition) != 0:
-            mescrypte += f"{chr(int(mestransition[i:i+5]))}"
-            mestransition = mestransition[i+4:]
-            i += 4
-        return mescrypte
-    #elif cle.type == "prive":
-        #dechiffrement
-        
-rsa = cle.Clé("2551")
-rsa.modulo = 8874
-cookie = Message("yolo les pates bolo")
-print(cookie.chiffrementRSA(rsa))
+    def chififfrementRSA(self,cle):
+        nombre = convertisseurtextnumero(self.texte,False)
+        nombrecryp = str((int(nombre)**int(cle.texte))%cle.modulo) #C = M**e [n] si c'est une clé public, M = C**d [n] si privée 
+        self.texte = convertisseurtextnumero(nombrecryp,True)
+
+def convertisseurtextnumero(texte, num=True):
+    if num:
+        #nombre au texte
+        charactere = []
+        nombre = int(texte)
+        while nombre > 0:
+            charactere.append(chr(nombre % 256))
+            nombre = nombre // 256
+        return "".join(reversed(charactere))
+    else:
+        #texte au nombre
+        mesnum = 0
+        for charactere in texte:
+            mesnum = mesnum * 256 + ord(charactere)
+        return mesnum
+
+
 
            
 
