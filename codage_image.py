@@ -95,7 +95,7 @@ class pictureinpicture():
         return chemin_acces
 
 if __name__ == "__main__":
-    class main(texteinpicture, pictureinpicture):
+    #class main(texteinpicture, pictureinpicture):
         message = input("Veuillez choisir si vous voulez coder/décoder un texte dans une image(taper t) ou une image(taper i) ")
         if message == 'i':
             message2 = input("Veuillez choisir si vous voulez cacher une image dans l'image support(taper c) ou bien reveler une image cacher(taper r)")

@@ -27,4 +27,5 @@ def texttoimage(text):
   img.save("image.png")
 
 text = imagetotexte("paysage.jpg")
+print(text)
 texttoimage(text)
