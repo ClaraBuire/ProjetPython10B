@@ -1,7 +1,7 @@
 from PIL import Image
 
 def imagetotexte(image):
-  #programme qui transforme une image en texte (pour etre ensuite crypté)
+  """programme qui transforme une image en texte (pour etre ensuite crypté)"""
   img = Image.open(image)
   pixel = img.load()
   text = f"{img.size[0]}".rjust(4, '0') + f"{img.size[1]}".rjust(4, '0') #les 8 premiers caracteres code la resolution de l'image 
@@ -14,7 +14,7 @@ def imagetotexte(image):
 
 
 def texttoimage(text):
-  #programme qui à partir d'un texte construit une image en utilisant le principe inverse
+  """programme qui à partir d'un texte construit une image en utilisant le principe inverse"""
   print(text[0:4],text[4:8])
   img = Image.new("RGB",(int(text[0:4]),int(text[4:8])))
   pixel = img.load()
@@ -26,6 +26,7 @@ def texttoimage(text):
       indice += 3
   img.save("image.png")
 
-text = imagetotexte("paysage.jpg")
-print(text)
-texttoimage(text)
+if __name__ == "main":
+  text = imagetotexte("paysage.jpg")
+  print(text)
+  texttoimage(text)

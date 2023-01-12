@@ -50,9 +50,10 @@ class Message:
         nombre = convertisseurtextnumero(self.texte,False)
         nombrecryp = str((int(nombre)**int(cle.texte))%cle.modulo) #C = M**e [n] si c'est une clé public, M = C**d [n] si privée 
         self.texte = convertisseurtextnumero(nombrecryp,True)
+        return self.texte
 
 def convertisseurtextnumero(texte, num=True):
-    #Converti un texte en un nombre en base 10 et inversement pour le chiffrage RSA
+    """Converti un texte en un nombre en base 10 et inversement pour le chiffrage RSA"""
     if num:
         #nombre au texte
         charactere = []
