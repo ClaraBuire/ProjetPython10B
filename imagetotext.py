@@ -13,18 +13,18 @@ def imagetotexte(image):
   return text
 
 
-def texttoimage(text):
-  """programme qui à partir d'un texte construit une image en utilisant le principe inverse"""
+def texttoimage(text,chemin_acces="image.png"):
+  """programme qui à partir d'un texte construit une image en utilisant le principe inverse et l'enregistre à chemin_acces"""
   print(text[0:4],text[4:8])
   img = Image.new("RGB",(int(text[0:4]),int(text[4:8])))
   pixel = img.load()
   indice = 8
   for i in range(img.size[0]):
     for j in range(img.size[1]):
-      print(indice)
+      #print(indice)
       pixel[i,j] = (ord(text[indice]),ord(text[indice + 1]),ord(text[indice + 2]))
       indice += 3
-  img.save("image.png")
+  img.save(chemin_acces)
 
 if __name__ == "main":
   text = imagetotexte("paysage.jpg")

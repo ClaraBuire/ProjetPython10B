@@ -13,7 +13,7 @@ class Clé:
         self.longueur = len(str(clé))
 
     def __repr__(self):
-        return "clé" + self.texte
+        return "clé : " + self.texte
 
 
 
