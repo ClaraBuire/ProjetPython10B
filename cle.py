@@ -81,7 +81,6 @@ def RSA(ficher,e):
     q = entierhasard(ficher)
     n = p * q
     phin = (p-1)*(q-1)
-    print(n)
     #e doit etre inferieur a phin et premier entre eux
     #e = int(input("Donnez un chiffre e, premier avec phin, s'il ne l'est pas on trouvera un chiffre proche de e premier avec phin"))
     while pgcd(e,phin) != 1:

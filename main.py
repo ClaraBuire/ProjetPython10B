@@ -15,12 +15,15 @@ import imagetotext as itt
 from PIL import Image
 import numpy as np
 
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import QSize
+
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(996, 713)
+        Form.resize(996, 733)
         self.tabWidget = QtWidgets.QTabWidget(Form)
-        self.tabWidget.setGeometry(QtCore.QRect(10, 10, 971, 691))
+        self.tabWidget.setGeometry(QtCore.QRect(10, 10, 971, 711))
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setIconSize(QtCore.QSize(40, 40))
         self.tabWidget.setElideMode(QtCore.Qt.ElideLeft)
@@ -28,7 +31,7 @@ class Ui_Form(object):
         self.CC = QtWidgets.QWidget()
         self.CC.setObjectName("CC")
         self.layoutWidget = QtWidgets.QWidget(self.CC)
-        self.layoutWidget.setGeometry(QtCore.QRect(0, 6, 961, 641))
+        self.layoutWidget.setGeometry(QtCore.QRect(0, 6, 961, 674))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(10, 10, 10, 10)
@@ -388,7 +391,7 @@ class Ui_Form(object):
         self.RSA = QtWidgets.QWidget()
         self.RSA.setObjectName("RSA")
         self.layoutWidget2 = QtWidgets.QWidget(self.RSA)
-        self.layoutWidget2.setGeometry(QtCore.QRect(20, 10, 934, 631))
+        self.layoutWidget2.setGeometry(QtCore.QRect(20, 10, 937, 631))
         self.layoutWidget2.setObjectName("layoutWidget2")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
@@ -792,7 +795,7 @@ class Ui_Form(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.layoutWidget_2 = QtWidgets.QWidget(self.tab)
-        self.layoutWidget_2.setGeometry(QtCore.QRect(0, 10, 961, 631))
+        self.layoutWidget_2.setGeometry(QtCore.QRect(0, 10, 961, 674))
         self.layoutWidget_2.setObjectName("layoutWidget_2")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.layoutWidget_2)
         self.verticalLayout_10.setContentsMargins(10, 10, 10, 10)
@@ -872,6 +875,25 @@ class Ui_Form(object):
         self.CII_CryptageTypeInput.addItem("")
         self.horizontalLayout_32.addWidget(self.CII_CryptageTypeInput)
         self.verticalLayout_10.addLayout(self.horizontalLayout_32)
+        self.horizontalLayout_34 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_34.setObjectName("horizontalLayout_34")
+        self.label_40 = QtWidgets.QLabel(self.layoutWidget_2)
+        self.label_40.setMinimumSize(QtCore.QSize(150, 30))
+        self.label_40.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.label_40.setFont(font)
+        self.label_40.setObjectName("label_40")
+        self.horizontalLayout_34.addWidget(self.label_40)
+        self.IT_KeyInput = QtWidgets.QLineEdit(self.layoutWidget_2)
+        self.IT_KeyInput.setMinimumSize(QtCore.QSize(675, 30))
+        self.IT_KeyInput.setMaximumSize(QtCore.QSize(675, 30))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.IT_KeyInput.setFont(font)
+        self.IT_KeyInput.setObjectName("IT_KeyInput")
+        self.horizontalLayout_34.addWidget(self.IT_KeyInput)
+        self.verticalLayout_10.addLayout(self.horizontalLayout_34)
         self.horizontalLayout_28 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_28.setObjectName("horizontalLayout_28")
         self.label_35 = QtWidgets.QLabel(self.layoutWidget_2)
@@ -941,7 +963,7 @@ class Ui_Form(object):
         self.tabWidget.addTab(self.tab, "")
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1020,11 +1042,13 @@ class Ui_Form(object):
         self.CII_CryptageTypeInput.setItemText(0, _translate("Form", "César"))
         self.CII_CryptageTypeInput.setItemText(1, _translate("Form", "Vigenère"))
         self.CII_CryptageTypeInput.setItemText(2, _translate("Form", "RSA"))
+        self.label_40.setText(_translate("Form", "Clé :"))
         self.label_35.setText(_translate("Form", "Enregistrement sortie :"))
         self.label_36.setText(_translate("Form", "Sortie :"))
         self.IT_ClearButton.setText(_translate("Form", "CLEAR"))
         self.IT_OKButton.setText(_translate("Form", "OK"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Form", "Image en Images"))
+
 
 ##Page 1 - cryptage Classiques
 
@@ -1056,7 +1080,7 @@ class Ui_Form(object):
     def cesar_vigenere(self, pos):
         """crypte ou décrypte en césar. si pos=True : cesar, sinon : vigenere"""
         mail=ct.Message(self.TextInput.text())
-        if self.CC_ModeInput.currentIndex() == 1:
+        if self.CC_ModeInput.currentIndex() == 1: #mode decryptage
             mail.modecryptage('off')
         key=cle.Clé(self.CC_KeyInput.text())
         if pos:
@@ -1154,7 +1178,7 @@ class Ui_Form(object):
             self.Img_GlobalOutput.setText('##ERREUR FICHIER')
 
         #except Exception:
-            #self.Img_GlobalOutput.setText('##ERROR 404')
+            #self.Img_GlobalOutput.setText('##ERROR NOT FOUND')
 
 ##Page 3 - Clés
 
@@ -1177,6 +1201,11 @@ class Ui_Form(object):
         """copie la clé puclique (sortie)"""
         clipboard = QtGui.QGuiApplication.clipboard()
         clipboard.setText(self.RSA_PrivateKeyOutput.text())
+
+    def copie_modulo(self):
+        """copie la clé secrete de user 1"""
+        clipboard = QtGui.QGuiApplication.clipboard()
+        clipboard.setText(self.RSA_ModCPOutput.text())
 
     def clear_cles(self):
         """clear la page Clés"""
@@ -1223,10 +1252,34 @@ class Ui_Form(object):
         self.IT_ModeInput.setCurrentIndex(0)
         self.IT_SaveInput.setText('')
         self.IT_Output.setText('')
+        self.IT_KeyInput.setText('')
 
     def cryptimg(self):
         """crypte une image en une autre image via imagetotext"""
-        pass
+        mail=ct.Message(itt.imagetotexte(self.IT_Input.text()))
+        key=cle.Clé(self.IT_KeyInput.text())
+        chemin_sortie=self.IT_SaveInput.text()
+        if self.IT_ModeInput.currentIndex() == 1: #Mode decryptage
+            mail.modecryptage('off')
+       
+        if self.CII_CryptageTypeInput.currentIndex() == 0: #César
+            try:
+                mail.cesar(key)
+            except(Exception):
+                self.CC_TextOutput.setText('##ERROR KEY : Key must be int type')
+
+        if self.CII_CryptageTypeInput.currentIndex() == 1: #Vigenere
+            try:
+                mail.vigenere(key)
+            except(Exception):
+                self.CC_TextOutput.setText('##ERROR KEY : Key must be str type')
+
+            print(mail.texte)
+            sortie=itt.texttoimage(mail.texte,chemin_sortie)
+            self.IT_Output.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+
+
+   
 
 if __name__ == "__main__":
     import sys
@@ -1256,7 +1309,10 @@ if __name__ == "__main__":
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.clersa())
     ui.IT_OKButton.clicked.connect(lambda : ui.cryptimg())
     ui.IT_ClearButton.clicked.connect(lambda : ui.clearii())
+    ui.RSA_cpmod1outputCopyButton.clicked.connect(lambda : ui.copie_modulo())
+    ui.RSA_cprmod1outputCopyButton_2.clicked.connect(lambda : ui.copie_modulo())
 
+    #Page 4
+    ui.IT_OKButton.clicked.connect(lambda : ui.cryptimg())
 
     sys.exit(app.exec_())
-
