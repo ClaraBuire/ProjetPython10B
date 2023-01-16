@@ -1,5 +1,6 @@
 import sys
 import cle
+import convertisseur
 
 lenASCII = 126  #nombre de caractere en ascii
 VAI = 31 #valeur indésirable de 0 à 31 en ascii
@@ -47,27 +48,11 @@ class Message:
         return 'Message : ' + self.texte
 
     def chififfrementRSA(self,cle):
-        nombre = convertisseurtextnumero(self.texte,False)
+        nombre = convertisseur.textnumero(self.texte,False)
         nombrecryp = str((int(nombre)**int(cle.texte))%cle.modulo) #C = M**e [n] si c'est une clé public, M = C**d [n] si privée 
-        self.texte = convertisseurtextnumero(nombrecryp,True)
+        self.texte = convertisseur.textnumero(nombrecryp,True)
         return self.texte
 
-def convertisseurtextnumero(texte, num=True):
-    """Converti un texte en un nombre en base 10 et inversement pour le chiffrage RSA"""
-    if num:
-        #nombre au texte
-        charactere = []
-        nombre = int(texte)
-        while nombre > 0:
-            charactere.append(chr(nombre % 256))
-            nombre = nombre // 256
-        return "".join(reversed(charactere))
-    else:
-        #texte au nombre
-        mesnum = 0
-        for charactere in texte:
-            mesnum = mesnum * 256 + ord(charactere)
-        return mesnum
 
 
 

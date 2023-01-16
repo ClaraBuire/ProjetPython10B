@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cryptagetexte as ct
 import cle
-import codage_image as ci
+import cryptageimage as ci
 import imagetotext as itt
 from PIL import Image
 import numpy as np
