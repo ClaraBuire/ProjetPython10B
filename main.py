@@ -11,7 +11,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import cryptagetexte as ct
 import cle
 import cryptageimage as ci
-import imagetotext as itt
 from PIL import Image
 import numpy as np
 
@@ -1081,7 +1080,7 @@ class Ui_Form(object):
         """crypte ou décrypte en césar. si pos=True : cesar, sinon : vigenere"""
         mail=ct.Message(self.TextInput.text())
         if self.CC_ModeInput.currentIndex() == 1: #mode decryptage
-            mail.modecryptage('off')
+            mail.modecryptage(False)
         key=cle.Clé(self.CC_KeyInput.text())
         if pos:
             try:
@@ -1256,11 +1255,13 @@ class Ui_Form(object):
 
     def cryptimg(self):
         """crypte une image en une autre image via imagetotext"""
-        mail=ct.Message(itt.imagetotexte(self.IT_Input.text()))
+        entre = ci.imagetotexte(self.IT_Input.text())
+        dimension = entre[:8]
+        mail=ct.Message(entre[8:])
         key=cle.Clé(self.IT_KeyInput.text())
         chemin_sortie=self.IT_SaveInput.text()
         if self.IT_ModeInput.currentIndex() == 1: #Mode decryptage
-            mail.modecryptage('off')
+            mail.modecryptage(False)
        
         if self.CII_CryptageTypeInput.currentIndex() == 0: #César
             try:
@@ -1274,9 +1275,8 @@ class Ui_Form(object):
             except(Exception):
                 self.CC_TextOutput.setText('##ERROR KEY : Key must be str type')
 
-            print(mail.texte)
-            sortie=itt.texttoimage(mail.texte,chemin_sortie)
-            self.IT_Output.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+        sortie=ci.texttoimage(dimension + mail.texte,chemin_sortie)
+        self.IT_Output.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
 
 
    

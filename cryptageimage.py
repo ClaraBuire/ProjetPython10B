@@ -115,7 +115,7 @@ def texttoimage(text,chemin_acces="image.png"):
   indice = 8
   for i in range(img.size[0]):
     for j in range(img.size[1]):
-      #print(indice)
       pixel[i,j] = (ord(text[indice]),ord(text[indice + 1]),ord(text[indice + 2]))
-      indice += 3
+      indice += 3 
   img.save(chemin_acces)
+  return chemin_acces

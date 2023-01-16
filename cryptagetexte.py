@@ -14,7 +14,7 @@ class Message:
         self.texte = texte
         self.cryptage = 1
 
-    def modecryptage(self,on):  #ps : c'est clairement pas optimisé comme truc
+    def modecryptage(self,on): 
         if on == True:
             self.cryptage = 1
         else:
@@ -49,10 +49,9 @@ class Message:
 
     def chififfrementRSA(self,cle):
         nombre = convertisseur.textnumero(self.texte,False)
-        nombrecryp = str((int(nombre)**int(cle.texte))%cle.modulo) #C = M**e [n] si c'est une clé public, M = C**d [n] si privée 
+        nombrecryp = str((int(nombre)**int(cle.texte))%cle.modulo) #C = M**e [n] si c'est une clé public, M = C**d [n] si privée
         self.texte = convertisseur.textnumero(nombrecryp,True)
         return self.texte
-
 
 
 

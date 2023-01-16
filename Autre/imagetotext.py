@@ -1,5 +1,6 @@
 from PIL import Image
-
+import cryptagetexte
+import cle
 def imagetotexte(image):
   """programme qui transforme une image en texte (pour etre ensuite crypté)"""
   img = Image.open(image)
@@ -13,7 +14,7 @@ def imagetotexte(image):
   return text
 
 
-def texttoimage(text,chemin_acces="image.png"):
+def texttoimage(text,chemin_acces):
   """programme qui à partir d'un texte construit une image en utilisant le principe inverse et l'enregistre à chemin_acces"""
   print(text[0:4],text[4:8])
   img = Image.new("RGB",(int(text[0:4]),int(text[4:8])))
@@ -26,10 +27,11 @@ def texttoimage(text,chemin_acces="image.png"):
       indice += 3
   img.save(chemin_acces)
 
-if __name__ == "main":
-  text = imagetotexte("paysage.jpg")
-  print(text)
-  texttoimage(text)
+text = imagetotexte("paysage.jpg")
+print(text)
+mes = cryptagetexte.Message(text[8:])
+mes.cesar(cle.Clé(5))
+texttoimage(text[:8]+mes.texte,"image.png")
 
 """
 
