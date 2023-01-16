@@ -2,13 +2,13 @@ from PIL import Image
 import convertisseur
 import numpy as np
 
-###Class du programme
 class texteinpicture():
     def __init__(self,phrase,M):
         self.M = M
         self.phrase = phrase
 
     def camouflage(self,chemin_acces='Users\remim\Downloads\test3.png'):
+        """cache un texte dans une image"""
         H,L = self.M.shape[0],self.M.shape[1]
         C = np.copy(self.M)
         code = convertisseur.codage_binaire(self.phrase)
@@ -28,6 +28,7 @@ class texteinpicture():
 
 
     def extraction(self):
+        """extrait un texte dans une image"""
         H,L = self.M.shape[0],self.M.shape[1]
         i,k = 0,0
         binaire = ''
@@ -62,7 +63,9 @@ class pictureinpicture():
         self.imageacacher = imageacacher
     #Camouflage/Extraction d'une image dans une autre image
     #Extraction d'une image en noir et blanc d'une image support
+
     def extraction_image(self,chemin_acces='Users\remim\Downloads\test3.png'):
+        """extrait une image camouflée dans une autre"""
         H,L = self.matriceimg.shape[0],self.matriceimg.shape[1]
         C = np.zeros((H,L))
         for i in range(H):
@@ -76,9 +79,11 @@ class pictureinpicture():
         #image_C.show()
         image_C.save(chemin_acces,'png')
         return chemin_acces
+    
     #camoufle la matrice I d'une image en noir et blanc
     
     def camouflage_image(self, chemin_acces='Users\remim\Downloads\test3.png'):
+        """camoufle une image NOIR et BLANC dans une image"""
         HM,LM = self.matriceimg.shape[0], self.matriceimg.shape[1]
         HI, LI = self.imageacacher.shape[0], self.imageacacher.shape[1]
         C = np.copy(self.matriceimg)
@@ -95,7 +100,7 @@ class pictureinpicture():
         return chemin_acces
 
 def imagetotexte(image):
-  """programme qui transforme une image en texte (pour etre ensuite crypté)"""
+  """transforme une image en texte (pour etre ensuite crypté)"""
   img = Image.open(image)
   pixel = img.load()
   text = f"{img.size[0]}".rjust(4, '0') + f"{img.size[1]}".rjust(4, '0') #les 8 premiers caracteres code la resolution de l'image 
@@ -108,7 +113,7 @@ def imagetotexte(image):
 
 
 def texttoimage(text,chemin_acces="image.png"):
-  """programme qui à partir d'un texte construit une image en utilisant le principe inverse et l'enregistre à chemin_acces"""
+  """construit une image à partir d'un texte en utilisant le principe inverse et l'enregistre à chemin_acces"""
   print(text[0:4],text[4:8])
   img = Image.new("RGB",(int(text[0:4]),int(text[4:8])))
   pixel = img.load()

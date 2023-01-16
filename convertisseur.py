@@ -24,7 +24,7 @@ def liste_codes_ascii(chaine):
         L+=[ord(elt)]
     return(L)
 
-print(liste_codes_ascii("abc"))
+#print(liste_codes_ascii("abc"))
 
 def codage_binaire(phrase):
     k = len(phrase)

@@ -8,9 +8,10 @@ def chififfrementRSA(texte,cle):
     texte = convertisseur.textnumero(nombrecryp,True)
     return texte
 
-message = "bonjour"
-clepublic, cleprive = cle.RSA("328000000.txt",2)
-mescry = chififfrementRSA(message,clepublic)
-print(mescry)
-messagesortie = chififfrementRSA(mescry,cleprive)
-print(messagesortie)
+if __name__ == "main":
+    message = "bonjour"
+    clepublic, cleprive = cle.RSA("328000000.txt",2)
+    mescry = chififfrementRSA(message,clepublic)
+    print(mescry)
+    messagesortie = chififfrementRSA(mescry,cleprive)
+    print(messagesortie)
