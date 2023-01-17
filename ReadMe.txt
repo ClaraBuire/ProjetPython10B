@@ -1,5 +1,8 @@
-Ce fichier contient les informations nécessaires à l'execution du code.
-Merci de lire à minima les avertissements avant execution.
+Crée par Lucie VIAL, Wenli XU, Antony LOMABRDO, Rémi MICHAUX
+
+EXECUTION DU CODE:
+Pour lancer l'interface : lancer le fichier main.py
+Pour lancer le cryptage lié aux Gifs : lancer gif.py
 
 AVERTISSEMENTS:
 - Certaines fonctionnalitées liées aux images peuvent ne pas fonctionner sous windows
@@ -9,9 +12,7 @@ AVERTISSEMENTS:
 - Le cryptage RSA (page 1) peut utiliser les clés générées en page 3 : dans ce cas, générer les clés (page 3), 
   ne PAS appuyer sur clear et continuer le cryptage (page 1) en entrant la clé et en laissant le champ Modulo à 0.
 
-EXECUTION DU CODE:
-Pour lancer l'interface : lancer le fichier main.py
-Pour lancer le cryptage lié aux Gifs : lancer gif.py
+
 
 Pour utiliser les fonctionaliées sans l'interface :
 - Cryptage texte dans une image : utiliser la class texteinpicture du module cryptageimage.py
