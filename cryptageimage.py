@@ -2,6 +2,8 @@ from PIL import Image
 import convertisseur
 import numpy as np
 
+VAI = 31 #valeur indésirable de 0 à 31 en ascii
+
 class texteinpicture():
     def __init__(self,phrase,M):
         self.M = M
@@ -108,19 +110,23 @@ def imagetotexte(image):
     for j in range(img.size[1]):
       #pour chaque pixel je recupere la valeur r, b ,b et on les traduits en caractere ascii
       r, g, b = pixel[i, j]
+      r = int(r/3) + VAI
+      g = int(g/3) + VAI
+      b = int(b/3) + VAI
       text = text + chr(r) + chr(g) + chr(b)
   return text
 
 
 def texttoimage(text,chemin_acces="image.png"):
   """construit une image à partir d'un texte en utilisant le principe inverse et l'enregistre à chemin_acces"""
-  print(text[0:4],text[4:8])
   img = Image.new("RGB",(int(text[0:4]),int(text[4:8])))
   pixel = img.load()
   indice = 8
   for i in range(img.size[0]):
     for j in range(img.size[1]):
-      pixel[i,j] = (ord(text[indice]),ord(text[indice + 1]),ord(text[indice + 2]))
+      pixel[i,j] = (ord(text[indice])*3 - VAI,ord(text[indice + 1])*3 - VAI,ord(text[indice + 2])*3 - VAI)
       indice += 3 
   img.save(chemin_acces)
   return chemin_acces
+
+

@@ -28,11 +28,9 @@ class Message:
         """crypte/décrypte en césar, la clé est de type cle.Clé"""
         mescrypte = ""
         for caractere in self.texte:
-                n_ord = (self.cryptage*int(clé.texte) + ord(caractere))%lenASCII
-                if 0<=n_ord<=VAI :
-                    n_ord = (n_ord+self.cryptage*VAI)%lenASCII  #on souhaite pas avoir les caracteres 0 à 31 en ascii 
-                #on cherche la lettre associé au poids (+- clé + poids associé au caractère) (moduloc126, le nombre de caractere ASCII°
-                mescrypte += chr(n_ord)
+                n_ord = (ord(caractere)-VAI+int(clé.texte)*self.cryptage)%(lenASCII-VAI) + VAI #on souhaite faire que les caracteres entre 31 et 126 du code ascii
+                #donc on decale de -31 (VAI) puis on fait notre decalage, et on sassure que la valeur reste entre 0 et 126-31=95, puis on refait +31 ravoir les caracteres en 31 et 126
+                mescrypte += chr(n_ord) 
         self.texte = mescrypte
     
     def vigenere(self,clé):
@@ -43,10 +41,8 @@ class Message:
         for caractere in self.texte:
             decalage = ord(clé.texte[iclé%lclé])  #decalage = poids du caractere regardé dans la clé
             #contrairement à césar, le décalage est different à chaque caractere, sinon même principe
-            n_ord = (self.cryptage*decalage + ord(caractere))%lenASCII
-            if 0<=n_ord<=VAI :
-                n_ord = (n_ord+self.cryptage*VAI)%lenASCII  #on souhaite pas avoir les caracteres 0 à 31 en ascii
-            mescrypte += chr(n_ord)
+            n_ord = (ord(caractere)-VAI+decalage*self.cryptage)%(lenASCII-VAI) + VAI
+            mescrypte += chr(n_ord)  #on souhaite pas avoir les caracteres 0 à 31 et au dessus de 126 en ascii
             iclé += 1
         self.texte = mescrypte
         

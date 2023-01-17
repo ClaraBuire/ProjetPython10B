@@ -1261,12 +1261,15 @@ class Ui_Form(object):
         chemin_sortie=self.IT_SaveInput.text()
         if self.IT_ModeInput.currentIndex() == 1: #Mode decryptage
             mail.modecryptage(False)
+            print("LAAAAAAAAAAAAAAAAAAAAAAAA")
        
         if self.CII_CryptageTypeInput.currentIndex() == 0: #César
-            try:
-                mail.cesar(key)
-            except(Exception):
-                self.CC_TextOutput.setText('##ERROR KEY : Key must be int type')
+            print("------------1------------")
+            print(mail)
+            mail.cesar(key)
+            print("--------------2--------------")
+            print(mail)
+
 
         if self.CII_CryptageTypeInput.currentIndex() == 1: #Vigenere
             try:

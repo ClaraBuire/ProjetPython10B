@@ -34,6 +34,32 @@ mes.cesar(cle.Clé(5))
 texttoimage(text[:8]+mes.texte,"image.png")
 
 """
+import cle
+import cryptagetexte
+
+mail2 = cryptagetexte.Message("coucou")
+key2 = cle.Clé("5")
+mail2.cesar(key2)
+print(mail2)
+mail2.modecryptage(False)
+mail2.cesar(key2)
+print(mail2)
+
+
+mail = cryptagetexte.Message(imagetotexte("couleur.jpg"))
+key = cle.Clé("5")
+dimension = mail.texte[:8]
+mail.texte = mail.texte[8:]
+mail.cesar(key)
+mail.texte = dimension + mail.texte
+texttoimage(mail)
+print("69")
+mail.modecryptage(False)
+mail.texte = mail.texte[8:]
+mail.cesar(key)
+mail.texte = dimension + mail.texte
+texttoimage(mail,"sortie.jpg")
+
 
 if __name__ == "__main__":
     message = input("Veuillez choisir si vous voulez coder/décoder un texte dans une image(taper t) ou une image(taper i) ")
