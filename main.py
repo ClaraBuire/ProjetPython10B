@@ -1254,30 +1254,20 @@ class Ui_Form(object):
 
     def cryptimg(self):
         """crypte une image en une autre image via imagetotext et texttoimage"""
-        entre = ci.imagetotexte(self.IT_Input.text())
-        dimension = entre[:8]
-        mail=ct.Message(entre[8:])
+        image = ci.imagecryptage(self.IT_Input.text())
+        image.listepixel()
         key=cle.Clé(self.IT_KeyInput.text())
         chemin_sortie=self.IT_SaveInput.text()
         if self.IT_ModeInput.currentIndex() == 1: #Mode decryptage
-            mail.modecryptage(False)
-            print("LAAAAAAAAAAAAAAAAAAAAAAAA")
+            image.cryptage = -1
        
         if self.CII_CryptageTypeInput.currentIndex() == 0: #César
-            print("------------1------------")
-            print(mail)
-            mail.cesar(key)
-            print("--------------2--------------")
-            print(mail)
-
+            image.cesarimage(key)
 
         if self.CII_CryptageTypeInput.currentIndex() == 1: #Vigenere
-            try:
-                mail.vigenere(key)
-            except(Exception):
-                self.CC_TextOutput.setText('##ERROR KEY : Key must be str type')
+            image.vigenereimage(key)
 
-        sortie=ci.texttoimage(dimension + mail.texte,chemin_sortie)
+        sortie = image.reconstruction(chemin_sortie)
         self.IT_Output.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
 
 
@@ -1309,7 +1299,7 @@ if __name__ == "__main__":
     ui.RSA_RSA_IntGenerateButton.clicked.connect(lambda : ui.int_alt())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.diffielman())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.clersa())
-    ui.IT_OKButton.clicked.connect(lambda : ui.cryptimg())
+    #ui.IT_OKButton.clicked.connect(lambda : ui.cryptimg())
     ui.RSA_cpmod1outputCopyButton.clicked.connect(lambda : ui.copie_modulo())
     ui.RSA_cprmod1outputCopyButton_2.clicked.connect(lambda : ui.copie_modulo())
 

@@ -3,6 +3,7 @@ import convertisseur
 import numpy as np
 
 VAI = 31 #valeur indésirable de 0 à 31 en ascii
+MAXVPIXEL = 256 #la valeur maxi d'un pixel
 
 class texteinpicture():
     def __init__(self,phrase,M):
@@ -101,32 +102,61 @@ class pictureinpicture():
         image_C.save(chemin_acces,'png')
         return chemin_acces
 
-def imagetotexte(image):
-  """transforme une image en texte (pour etre ensuite crypté)"""
-  img = Image.open(image)
-  pixel = img.load()
-  text = f"{img.size[0]}".rjust(4, '0') + f"{img.size[1]}".rjust(4, '0') #les 8 premiers caracteres code la resolution de l'image 
-  for i in range(img.size[0]):
-    for j in range(img.size[1]):
-      #pour chaque pixel je recupere la valeur r, b ,b et on les traduits en caractere ascii
-      r, g, b = pixel[i, j]
-      r = int(r/3) + VAI
-      g = int(g/3) + VAI
-      b = int(b/3) + VAI
-      text = text + chr(r) + chr(g) + chr(b)
-  return text
+
+class imagecryptage():
+    def __init__(self,chemin):
+        self.dimension = (0,0)
+        self.pixel = []
+        self.cryptage = 1
+        self.chemin = chemin
+
+    def cesarimage(self,cle):
+        Lpixel = []
+        for (i,pixel) in enumerate(self.pixel):
+            [r,g,b] = pixel
+            r = (r + (int(cle.texte)+i)*(self.cryptage))%MAXVPIXEL
+            g = (g + (int(cle.texte)+i)*(self.cryptage))%MAXVPIXEL
+            b = (b + (int(cle.texte)+i)*(self.cryptage))%MAXVPIXEL
+            Lpixel += [[r,g,b]]
+        self.pixel = Lpixel
+
+    def vigenereimage(self,cle):
+            Lpixel = []
+            iclé = 0
+            lclé = cle.longueur
+            for (i,pixel) in enumerate(self.pixel):
+                decalage = ord(cle.texte[iclé%lclé])
+                d = decalage//3
+                pixel[d%3] = (pixel[d%3] + (decalage+i)*(self.cryptage))%MAXVPIXEL
+                pixel[(d+1)%3] = (pixel[(d+1)%3] + (decalage+i)*(self.cryptage))%MAXVPIXEL
+                pixel[(d+2)%3] = (pixel[(d+2)%3] + (decalage+i)*(self.cryptage))%MAXVPIXEL
+                Lpixel += [pixel]
+                iclé += 1
+            self.pixel = Lpixel
+
+    
+
+    def listepixel(self):
+        """transforme une image en liste de pixel (pour etre ensuite crypté)"""
+        img = Image.open(self.chemin)
+        self.dimension = (img.size[0],img.size[1])
+        pixel = img.load()
+        for i in range(img.size[0]):
+            for j in range(img.size[1]):
+            #pour chaque pixel je recupere la valeur r, g,b et on les traduits en caractere ascii
+                r, g, b = pixel[i, j]
+                self.pixel += [[r,g,b]]
 
 
-def texttoimage(text,chemin_acces="image.png"):
-  """construit une image à partir d'un texte en utilisant le principe inverse et l'enregistre à chemin_acces"""
-  img = Image.new("RGB",(int(text[0:4]),int(text[4:8])))
-  pixel = img.load()
-  indice = 8
-  for i in range(img.size[0]):
-    for j in range(img.size[1]):
-      pixel[i,j] = (ord(text[indice])*3 - VAI,ord(text[indice + 1])*3 - VAI,ord(text[indice + 2])*3 - VAI)
-      indice += 3 
-  img.save(chemin_acces)
-  return chemin_acces
-
-
+    def reconstruction(self,chemin_acces="image.png"):
+        """construit une image à partir d'une liste de pixel en utilisant le principe inverse et l'enregistre à chemin_acces"""
+        img = Image.new("RGB",(self.dimension[0],self.dimension[1]))
+        pixel = img.load()
+        indice = 0
+        for i in range(self.dimension[0]):
+            for j in range(self.dimension[1]):
+                (r,g,b) = self.pixel[indice]
+                pixel[i,j] = r, g, b 
+                indice += 1
+        img.save(chemin_acces)
+        return chemin_acces

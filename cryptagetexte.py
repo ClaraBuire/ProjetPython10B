@@ -26,6 +26,7 @@ class Message:
 
     def cesar(self,clé):
         """crypte/décrypte en césar, la clé est de type cle.Clé"""
+        print("cesar")
         mescrypte = ""
         for caractere in self.texte:
                 n_ord = (ord(caractere)-VAI+int(clé.texte)*self.cryptage)%(lenASCII-VAI) + VAI #on souhaite faire que les caracteres entre 31 et 126 du code ascii
