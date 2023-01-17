@@ -1,5 +1,6 @@
 import convertisseur 
 import cle
+#CE CODE EST TEMPORAIRE POUR DEBUGER LE RSA
 
 def chififfrementRSA(texte,cle):
     nombre = convertisseur.textnumero(texte,False)
