@@ -37,13 +37,22 @@ def DiffieHellman():
     except TypeError:
         print("Erreur : Veuillez recommencez le programme d'échanges de clé")
 
-def entierhasard(ficher='328000000.txt'):
+def entierhasard(ficher='premier.txt'):
     """parmi un ficher de plusieurs millers nombre premiers, on selectionne un au hasard"""
-    ligne = r.randint(0,len(ficher))
     with open(ficher,'r') as f:
-        for (i,line) in enumerate(f):
+         #les 4 lignes sert à compter le nombre ligne dans le ficher pour savoir ensuite en prendre un au hasard (les autres methodes pour compter ne marche pas ??)
+        ligne = r.randint(0,nombredeligne(ficher))
+        for i,line in enumerate(f):
             if i == ligne:
                 return int(line)
+
+def nombredeligne(ficher):
+    nl = 0
+    with open(ficher,'r') as f:
+        for line in f:
+            nl += 1
+    return nl-1
+
 def pgcd(a,b):
     while b != 0:
         a,b=b,a%b

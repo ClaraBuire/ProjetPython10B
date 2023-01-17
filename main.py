@@ -1221,7 +1221,7 @@ class Ui_Form(object):
 
     def int_alt(self):
         """renvoie un entier au hasard"""
-        self.RSA_RSA_IntInput.setValue(int(cle.entierhasard('328000000.txt')))
+        self.RSA_RSA_IntInput.setValue(int(cle.entierhasard('premier.txt')))
 
 
     def diffielman(self):
@@ -1236,7 +1236,7 @@ class Ui_Form(object):
 
     def clersa(self):
         """gère les clés RSA"""
-        public,private=cle.RSA('328000000.txt',self.RSA_RSA_IntInput.value())
+        public,private=cle.RSA('premier.txt',self.RSA_RSA_IntInput.value())
         self.RSA_ModCPrOutput.setText(str(private.modulo))
         self.RSA_ModCPOutput.setText(str(public.modulo))
         self.RSA_PublicKeyOutput.setText(public.texte)

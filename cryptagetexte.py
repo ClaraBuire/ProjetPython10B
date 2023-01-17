@@ -26,7 +26,7 @@ class Message:
 
     def cesar(self,clé):
         """crypte/décrypte en césar, la clé est de type cle.Clé"""
-        print("cesar")
+        print("")
         mescrypte = ""
         for caractere in self.texte:
                 n_ord = (ord(caractere)-VAI+int(clé.texte)*self.cryptage)%(lenASCII-VAI) + VAI #on souhaite faire que les caracteres entre 31 et 126 du code ascii
@@ -46,15 +46,27 @@ class Message:
             mescrypte += chr(n_ord)  #on souhaite pas avoir les caracteres 0 à 31 et au dessus de 126 en ascii
             iclé += 1
         self.texte = mescrypte
-        
 
     def chififfrementRSA(self,cle):
-        nombre = convertisseur.textnumero(self.texte,False)
-        nombrecryp = str((int(nombre)**int(cle.texte))%cle.modulo) #C = M**e [n] si c'est une clé public, M = C**d [n] si privée
-        self.texte = convertisseur.textnumero(nombrecryp,True)
+        textecryp = ""
+        for caractere in self.texte:
+            nombre = ord(caractere)
+            nombrecryp = (int(nombre)**int(cle.texte))%cle.modulo #C = M**e [n] si c'est une clé public, M = C**d [n] si privée 
+            textecryp += chr(nombrecryp)
+        self.texte = textecryp
         return self.texte
 
+"""
+normalement le chiffrement RSA n'a pas besoins de chiffrer caractere par caractere mais les calculs pouvant être tres long et on a besoin de grand nombre premier pour crypter un long message
+on a décidé ici d'adapter pour un soucis de rapidité (car on doit demontrer que notre chiffrement fonctionne en présentation)
+mais voici le code du chiffrement RSA pour un texte complet si on avait une grande puissance de calcul pour de trés grande clé et cryptage.
 
+def chififfrementRSA(texte,cle):
+    nombre = convertisseur.textnumero(texte,False)
+    nombrecryp = str((int(nombre)**int(cle.texte))%cle.modulo) #C = M**e [n] si c'est une clé public, M = C**d [n] si privée 
+    texte = convertisseur.textnumero(nombrecryp,True)
+    return texte
+"""
 
            
 
