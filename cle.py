@@ -18,7 +18,7 @@ class Clé:
 
 
 def DiffieHellman():
-    #Programme pour echanger les clés publics privés
+    """echanger les clés publics privés"""
     #Utilisation du calcul d'expondentielle trés élévee, rendant quasi impossible le chemin inverse avec le log
     try:
         g = int(input("User1 : Veuillez entrez un entier g (entre 2 et 9 :) "))
@@ -37,8 +37,8 @@ def DiffieHellman():
     except TypeError:
         print("Erreur : Veuillez recommencez le programme d'échanges de clé")
 
-def entierhasard(ficher):
-    #parmi un ficher de plusieurs millers nombre premiers, on selectionne un au hasard
+def entierhasard(ficher='328000000.txt'):
+    """parmi un ficher de plusieurs millers nombre premiers, on selectionne un au hasard"""
     ligne = r.randint(0,len(ficher))
     with open(ficher,'r') as f:
         for (i,line) in enumerate(f):
@@ -50,7 +50,7 @@ def pgcd(a,b):
     return a
 
 def euclideetendu(b,n):
-    #permet de trouver l'inverse modulaire de b module n, (cad trouver x dans b*x = 1 [n])
+    """permet de trouver l'inverse modulaire de b module n, (cad trouver x dans b*x = 1 [n])"""
     n0 = n
     b0 = b
     t0 = 0

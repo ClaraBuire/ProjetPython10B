@@ -1072,8 +1072,7 @@ class Ui_Form(object):
             self.cesar_vigenere(False)
         if self.CC_CryptageTypeInput.currentIndex()==2:
             self.rsa()
-        if self.CC_CryptageTypeInput.currentIndex()==3:
-            self.imagetexte()
+
 
 
     def cesar_vigenere(self, pos):
@@ -1187,22 +1186,22 @@ class Ui_Form(object):
         clipboard.setText(self.RSA_u1_SecretKeOutput.text())
 
     def copie_keyu2(self):
-        """copie la clé secrete de user 1"""
+        """copie la clé secrete de user 2"""
         clipboard = QtGui.QGuiApplication.clipboard()
         clipboard.setText(self.RSA_u2_SecretKeyOutput.text())
 
     def copie_publicexit(self):
-        """copie la clé puclique (sortie)"""
+        """copie la clé publique (sortie)"""
         clipboard = QtGui.QGuiApplication.clipboard()
         clipboard.setText(self.RSA_PublicKeyOutput.text())
 
     def copie_privateexit(self):
-        """copie la clé puclique (sortie)"""
+        """copie la clé privée (sortie)"""
         clipboard = QtGui.QGuiApplication.clipboard()
         clipboard.setText(self.RSA_PrivateKeyOutput.text())
 
     def copie_modulo(self):
-        """copie la clé secrete de user 1"""
+        """copie le modulo des clés RSA"""
         clipboard = QtGui.QGuiApplication.clipboard()
         clipboard.setText(self.RSA_ModCPOutput.text())
 
@@ -1245,7 +1244,7 @@ class Ui_Form(object):
 
 ##Page 4 - Images en Images
 
-    def clearii(self):
+    def clear_ii(self):
         """clear la page 4"""
         self.IT_Input.setText('')
         self.IT_ModeInput.setCurrentIndex(0)
@@ -1254,7 +1253,7 @@ class Ui_Form(object):
         self.IT_KeyInput.setText('')
 
     def cryptimg(self):
-        """crypte une image en une autre image via imagetotext"""
+        """crypte une image en une autre image via imagetotext et texttoimage"""
         entre = ci.imagetotexte(self.IT_Input.text())
         dimension = entre[:8]
         mail=ct.Message(entre[8:])
@@ -1308,11 +1307,12 @@ if __name__ == "__main__":
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.diffielman())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.clersa())
     ui.IT_OKButton.clicked.connect(lambda : ui.cryptimg())
-    ui.IT_ClearButton.clicked.connect(lambda : ui.clearii())
     ui.RSA_cpmod1outputCopyButton.clicked.connect(lambda : ui.copie_modulo())
     ui.RSA_cprmod1outputCopyButton_2.clicked.connect(lambda : ui.copie_modulo())
 
     #Page 4
     ui.IT_OKButton.clicked.connect(lambda : ui.cryptimg())
+    ui.IT_ClearButton.clicked.connect(lambda : ui.clear_ii())
+
 
     sys.exit(app.exec_())

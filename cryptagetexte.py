@@ -14,13 +14,18 @@ class Message:
         self.texte = texte
         self.cryptage = 1
 
-    def modecryptage(self,on): 
-        if on == True:
+    def __repr__(self):
+        return 'Message : ' + self.texte
+
+    def modecryptage(self,on):
+        """fixe le mode en cryptage ou en décryptage"""
+        if on:
             self.cryptage = 1
         else:
             self.cryptage = -1
 
     def cesar(self,clé):
+        """crypte/décrypte en césar, la clé est de type cle.Clé"""
         mescrypte = ""
         for caractere in self.texte:
                 n_ord = (self.cryptage*int(clé.texte) + ord(caractere))%lenASCII
@@ -31,6 +36,7 @@ class Message:
         self.texte = mescrypte
     
     def vigenere(self,clé):
+        """crypte/décrypte en Vigenere, la clé est de type cle.Clé"""
         mescrypte = ""
         iclé = 0  #Ou l'on se situe dans le parcours de la clé (pour le décalage, d'ou iclé += 1)
         lclé = clé.longueur
@@ -44,8 +50,6 @@ class Message:
             iclé += 1
         self.texte = mescrypte
         
-    def __repr__(self):
-        return 'Message : ' + self.texte
 
     def chififfrementRSA(self,cle):
         nombre = convertisseur.textnumero(self.texte,False)
