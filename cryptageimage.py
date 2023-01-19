@@ -86,7 +86,7 @@ class pictureinpicture():
     #camoufle la matrice I d'une image en noir et blanc
     
     def camouflage_image(self, chemin_acces='Users\remim\Downloads\test3.png'):
-        """camoufle une image NOIR et BLANC dans une image"""
+        """camoufle une image NOIR et BLANC, format png dans une image png"""
         HM,LM = self.matriceimg.shape[0], self.matriceimg.shape[1]
         HI, LI = self.imageacacher.shape[0], self.imageacacher.shape[1]
         C = np.copy(self.matriceimg)
@@ -98,7 +98,6 @@ class pictureinpicture():
                 else:
                     C[i,j,1] = convertisseur.transfo(self.matriceimg[i,j,1],1)
         image_C = Image.fromarray(C)
-        #image_C.show()
         image_C.save(chemin_acces,'png')
         return chemin_acces
 

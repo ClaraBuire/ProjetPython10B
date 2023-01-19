@@ -1063,6 +1063,7 @@ class Ui_Form(object):
         self.CC_TextOutput.setText('')
         self.CC_ModeInput.setCurrentIndex(0)
         self.CC_CryptageTypeInput.setCurrentIndex(0)
+        self.RSA_RSA_IntInput_2.setValue(0)
 
     def main_cryptoClassique(self):
         """permet de lancer la bonne fonction suivant le type de codage"""
@@ -1145,17 +1146,17 @@ class Ui_Form(object):
                     camoufimg = ci.pictureinpicture(Mat2,Mat)
                     if self.Img_SaveOutputImage.text() == '':
                         sortie = camoufimg.camouflage_image()
-                        self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+                        self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) 
                     else:
                         sortie = camoufimg.camouflage_image(str(self.Img_SaveOutputImage.text()))
-                        self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+                        self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) 
 
                 else: #si on veut sortir une image d'une image
                     mon_image = Image.open(self.Img_SupportImageInput.text())
                     mat = np.array(mon_image)
                     revelimg = ci.pictureinpicture(mat,np.zeros(5))
                     sortie = revelimg.extraction_image(str(self.Img_SaveOutputImage.text()))
-                    self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+                    self.Img_GlobalOutput.setPixmap(QPixmap(sortie))
             
             else: #si l'entrée est un texte
                 if self.ModeInput_2.currentIndex() == 1: #mode revelation
@@ -1169,14 +1170,12 @@ class Ui_Form(object):
                     Mat = np.array(mon_image)
                     cachimg = ci.texteinpicture(self.Img_CryptageInput.text(),Mat)
                     sortie = cachimg.camouflage(self.Img_SaveOutputImage.text())
-                    self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+                    self.Img_GlobalOutput.setPixmap(QPixmap(sortie)) 
         
 
         except FileNotFoundError:
             self.Img_GlobalOutput.setText('##ERREUR FICHIER')
 
-        #except Exception:
-            #self.Img_GlobalOutput.setText('##ERROR NOT FOUND')
 
 ##Page 3 - Clés
 
@@ -1212,16 +1211,16 @@ class Ui_Form(object):
         self.RSA_u1_SecretKeOutput.setText('')
         self.RSA_u2_PrivateKeyInput.setValue(1)
         self.RSA_u2_SecretKeyOutput.setText('')
-        self.RSA_RSA_IntInput.setValue(0) #à voir avec Anto
+        self.RSA_RSA_IntInput.setValue(0) 
         self.RSA_PublicKeyOutput.setText('')
         self.RSA_PrivateKeyOutput.setText('')
         self.RSA_ModCPOutput.setText('')
         self.RSA_ModCPrOutput.setText('')
 
 
-    def int_alt(self):
-        """renvoie un entier au hasard"""
-        self.RSA_RSA_IntInput.setValue(int(cle.entierhasard('premier.txt')))
+    def int_alt(self,fichier='premier.txt'):
+        """renvoie un entier premier au hasard, prit dans le fichier premier.txt"""
+        self.RSA_RSA_IntInput.setValue(int(cle.entierhasard(fichier)))
 
 
     def diffielman(self):
@@ -1268,7 +1267,7 @@ class Ui_Form(object):
             image.vigenereimage(key)
 
         sortie = image.reconstruction(chemin_sortie)
-        self.IT_Output.setPixmap(QPixmap(sortie)) #.scaled(QSize(100,100))
+        self.IT_Output.setPixmap(QPixmap(sortie)) 
 
 
    
@@ -1299,7 +1298,6 @@ if __name__ == "__main__":
     ui.RSA_RSA_IntGenerateButton.clicked.connect(lambda : ui.int_alt())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.diffielman())
     ui.RSA_CreateKeyButton.clicked.connect(lambda : ui.clersa())
-    #ui.IT_OKButton.clicked.connect(lambda : ui.cryptimg())
     ui.RSA_cpmod1outputCopyButton.clicked.connect(lambda : ui.copie_modulo())
     ui.RSA_cprmod1outputCopyButton_2.clicked.connect(lambda : ui.copie_modulo())
 

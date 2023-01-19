@@ -4,6 +4,7 @@
 N = 8
 
 def binaire(nombre):
+    """converti un entier en binaire"""
     code = ''
     for k in range(8):
         bit = nombre%2
@@ -12,13 +13,15 @@ def binaire(nombre):
     return(code)
 
 def nombre(binaire):
+    """converti un code binaire en entier"""
     n = 0
     for b in binaire:
         n = 2 * n + int(b)
     return n
+
 #Codes ASCII
-#liste des codes ASCII des caracteres d'une chaine de caractere
 def liste_codes_ascii(chaine):
+    """renvoie la liste des codes ASCII des caracteres d'une chaine de caractere"""
     L=[]
     for elt in chaine:
         L+=[ord(elt)]
