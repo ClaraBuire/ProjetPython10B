@@ -121,7 +121,7 @@ class imagecryptage():
         self.pixel = Lpixel
 
     def vigenereimage(self,cle):
-            #même principe que vignere en cryptage texte, sauf que l'on traite des pixels et que l'on a un décalage suplementaire suivant les pixels pour brouiller l'image
+            """même principe que vignere en cryptage texte, sauf que l'on traite des pixels et que l'on a un décalage suplementaire suivant les pixels pour brouiller l'image"""
             Lpixel = []
             iclé = 0
             lclé = cle.longueur
