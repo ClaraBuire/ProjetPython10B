@@ -9,16 +9,25 @@ AVERTISSEMENTS:
 - L'échange des clés nécessite le fichier premier.txt 
 - Le cryptage dans les GIFs est indépendant de l'interface et doit être lancé à part
 - Le cryptage RSA (page 1) peut utiliser les clés générées en page 3 : dans ce cas, générer les clés (page 3), 
+<<<<<<< HEAD
   ne PAS appuyer sur clear et continuer le cryptage (page 1) en entrant la clé et en laissant le champ Modulo à 0.
   Pour crypter en RSA : entrer la clé publique / pour décrypter : entrer la clé privée
 - Le cryptage GIF est un prototype, indépendant du reste du code
+=======
+  ne PAS appuyer sur clear et continuer le cryptage (page 1) en entrant la clé et en laissant le champ Modulo à 0, ou rentrer le modulo générer
+- Le cryptage GIF est un 'module bonus', indépendant du reste du code
+>>>>>>> 9e4f2c74e9bcbfffe3da10dd0c0e050e98781438
 
 
 Pour utiliser les fonctionaliées sans l'interface :
 - Cryptage texte dans une image : utiliser la class texteinpicture du module cryptageimage.py
 - Cryptage image dans une image : utiliser la class pictureinpicture du module cryptageimage.py
 - Echanges de clés : utiliser les fonctions DiffieHellman et RSA du module cle.py
+<<<<<<< HEAD
 - Cryptage RSA : utiliser la fonction chiffrementRSA du module cryptagetexte.py
+=======
+- Cryptage RSA : utiliser le module Autre\RSA.py comme dans le test disponible en fin de module
+>>>>>>> 9e4f2c74e9bcbfffe3da10dd0c0e050e98781438
 - Cryptages César et Vigenere : appeller les fonctions cesar ou vigenere du module cryptagetexte.py
 - Pour crypter une image : lancer les fonctions texttoimage ou imagetotext du module cryptageimage.py
 
@@ -28,6 +37,10 @@ STRUCTURE DU CODE:
 Classe Clé pour tout type de cryptage nécessitant une clé
 Fonctions utiles pour toutes opérations liées aux clés, voir directement dans le module
 Les clés RSA utilisent le fichier premier.txt au lieu de les générer aléatoirement
+<<<<<<< HEAD
+=======
+A noter que le ficher premier.txt ici fourni n'est que des petits nombres entiers pour des soucis de performances (sinon les calculs prenent plusieurs minutes)
+>>>>>>> 9e4f2c74e9bcbfffe3da10dd0c0e050e98781438
 
 - Module convertisseur.py:
 Ne contient pas de classe
