@@ -2,7 +2,7 @@ Crée par Lucie VIAL, Wenli XU, Antony LOMABRDO, Rémi MICHAUX
 
 EXECUTION DU CODE:
 Pour lancer l'interface : lancer le fichier main.py
-Pour lancer le cryptage lié aux Gifs : lancer gif.py
+Pour lancer le cryptage lié aux Gifs : reportez vous à la section 'CRYPTAGE GIF' ci-dessous
 
 AVERTISSEMENTS:
 - Certaines fonctionnalitées liées aux images peuvent ne pas fonctionner sous windows, notamment à cause de la fonction save du module PIL
@@ -10,7 +10,7 @@ AVERTISSEMENTS:
 - Le cryptage dans les GIFs est indépendant de l'interface et doit être lancé à part
 - Le cryptage RSA (page 1) peut utiliser les clés générées en page 3 : dans ce cas, générer les clés (page 3), 
   ne PAS appuyer sur clear et continuer le cryptage (page 1) en entrant la clé et en laissant le champ Modulo à 0.
-
+- Le cryptage GIF est un 'module bonus', indépendant du reste du code
 
 
 Pour utiliser les fonctionaliées sans l'interface :
@@ -20,6 +20,7 @@ Pour utiliser les fonctionaliées sans l'interface :
 - Cryptage RSA : utiliser le module RSA.py comme dans le test disponible en fin de module
 - Cryptages César et Vigenere : appeller les fonctions cesar ou vigenere du module cryptagetexte.py
 - Pour crypter une image : lancer les fonctions texttoimage ou imagetotext du module cryptageimage.py
+
 
 STRUCTURE DU CODE:
 - Module cle.py:
@@ -48,3 +49,22 @@ Généré avec QtDesigner jusqu'à la ligne 1049, relié à partir de la ligne 1
 les fonctions dont le nom commence par "clear_" servent à remettre l'interface dans sa position initialeen utilisant les boutons CLEAR
 les fonctions dont le nom commence par "copie_" servent à copier dans le presse papier les sorties texte et sont reliées aux boutons COPIE
 les autres fonctions servent à relier les fonctionnalitées des modules ci-dessus à l'interface. Elles sont appelées par les boutons de l'interface.
+
+
+CRYPTAGE GIF
+Ce module est une démonstration pour prouver que le cryptage fonctionne sur des GIF
+Attention, ce module est prévu pour fonctionner sous linux
+Pour faire le faire fonctionner sous windows : changer les / par des \ aux lignes 77, 79, 97, 105
+
+Pour creer un GIF :
+- Creer un dossier GIF dans le dossier actuel, il stockera le gif image par image
+- Lancer la fonction cree_gif() qui prend en parametre le nom du gif que vous voulez enregistrer
+Par défaut, cette fonction cree un GIF coeur en 50 images. Pour en creer un autre, changer les équations paramétriques lignes 71 et 72
+
+Pour cacher un texte dans un GIF :
+- Creer un dossier GIF_modifie dans le dossier actuel
+- Lancer la fonction main_emetteur
+Attention : Il vous sera alors demandé de rentrer le chemin d'accès de votre PREMIERE IMAGE du GIF, ne pas passer en paramètre le fichier coeur.gif
+
+Pour sortir un texte d'un GIF, lancer la fonction main_recepeteur
+

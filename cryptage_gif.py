@@ -1,6 +1,9 @@
 from PIL import Image
-import ascii
+import convertisseur as ascii
 import numpy as np
+import imageio.v2 as iio
+import matplotlib.pyplot as plt
+
 
 ###Class du programme
 class texteinpicture():
@@ -8,7 +11,8 @@ class texteinpicture():
         self.M = M
         self.phrase = phrase
 
-    def camouflage(self):
+    def camouflage(self, chemin_enregistrement='/Users/xuzenli/Desktop/images/GIF_modifie/message_pour_clara.jpg'):
+        """camoufle le texte dans une image. Penser à modifier le chemin d'enregristrement"""
         H,L = self.M.shape[0],self.M.shape[1]
         C = np.copy(self.M)
         code = ascii.codage_binaire(self.phrase)
@@ -22,11 +26,12 @@ class texteinpicture():
                 k += 1
             i += 1
         image_C = Image.fromarray(C)
-        image_C.save('/Users/xuzenli/Desktop/images/GIF_modifie/message_pour_clara.jpg','png')
+        image_C.save(chemin_enregistrement,'png')
 
 
 
     def extraction(self):
+        """extrait le texte caché dans une image"""
         H,L = self.M.shape[0],self.M.shape[1]
         i,k = 0,0
         binaire = ''
@@ -56,16 +61,11 @@ class texteinpicture():
         return ascii.convertir_en_chaine(binaire+phrase_binaire)
 
 
-import numpy as np
-import matplotlib.pyplot as plt
-from PIL import Image
-import ascii
-import numpy as np
-import random
 
 
-def cree_gif():
 
+def cree_gif(nom='coeur.gif'):
+    """cree un GIF coeur - ATTENTION  lire les avertissement du readme.txt avant de lancer cette fonction"""
     # Implémentation de l'équation paramétrique
     t = np.linspace(0,2*np.pi, 50) # Je choisis 50 points entre 0 et 2pi
     x = 16*(np.sin(t))**3
@@ -76,21 +76,18 @@ def cree_gif():
        plt.scatter(x[i], y[i]) # Tracé
        plt.savefig(f"GIF/{i}.jpg") # Enregistrement dans le dossier "GIF"
 
-
-    import imageio.v2 as iio
     frames = np.stack([iio.imread(f"GIF/{i}.jpg") for i in range(len(t))], axis = 0)
-    iio.mimwrite('coeur.gif', frames) # creer un gif avec le nom coeur.gif
+    iio.mimwrite(nom, frames) # creer un gif avec le nom coeur.gif
     
 
 
 
 
-def main_emetteur():
-    " entrée : dossier gif(50 images) et un texte"
-    " sortie : un texte caché dans le gif  modifié"
+def main_emetteur(nom_enregistrement='coeur_modifie.gif'):
+    """ entrée : dossier gif(50 images) et un texte, sortie : un texte caché dans le gif  modifié"""
     
     ### cacher le texte dans l'image
-    matrice = input("Entrez le chemin de votre image gif ou vous voulez cacher le texte : ")
+    matrice = input("Entrez le chemin de votre première image du gif : ")
     mon_image = Image.open(matrice)
     Mat = np.array(mon_image)
     txt = input("Entrez le texte que vous voulez cacher : ")
@@ -98,22 +95,18 @@ def main_emetteur():
     print(cachimg.camouflage())
     import imageio.v2 as iio
     frames = np.stack([iio.imread(f"GIF_modifie/{i}.jpg") for i in range(len(t))], axis = 0)
-    iio.mimwrite('coeur_modifie.gif', frames)
+    iio.mimwrite(nom_enregistrement, frames)
 
        
-#main_emetteur()
 
 def main_recepeteur():
        
     ### réveler le texte
-    matrice = input("Entrez le chemin de votre dossier GOF_modifie : ")+'/message_pour_clara.jpg'
+    matrice = input("Entrez le chemin de votre dossier GIF_modifie : ")+'/message_pour_clara.jpg'
     mon_image = Image.open(matrice)
     Mat = np.array(mon_image)
     revelimg = texteinpicture('',Mat)
     print(revelimg.extraction())
-    
-#main_recepeteur()
-    
     
     
 
