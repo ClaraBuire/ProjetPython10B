@@ -9,7 +9,6 @@ class Message:
     #classe pour les messages
     #self.texte, l'information du message
     #self.cryptage, 1 si on crypte, -1 si on décrypte
-    #ps : j'ai enlever self.clé étant donné que l'on a une classe clé
     def __init__(self,texte):
         self.texte = texte
         self.cryptage = 1

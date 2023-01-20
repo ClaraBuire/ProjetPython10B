@@ -1,4 +1,4 @@
-Crée par Lucie VIAL, Wenli XU, Antony LOMABRDO, Rémi MICHAUX
+Crée par LA DREAM TEAM : Antony LOMBARDO, Wenli XU, Lucie VIAL, Rémi MICHAUX
 
 EXECUTION DU CODE:
 Pour lancer l'interface : lancer le fichier main.py
@@ -10,14 +10,15 @@ AVERTISSEMENTS:
 - Le cryptage dans les GIFs est indépendant de l'interface et doit être lancé à part
 - Le cryptage RSA (page 1) peut utiliser les clés générées en page 3 : dans ce cas, générer les clés (page 3), 
   ne PAS appuyer sur clear et continuer le cryptage (page 1) en entrant la clé et en laissant le champ Modulo à 0.
-- Le cryptage GIF est un 'module bonus', indépendant du reste du code
+  Pour crypter en RSA : entrer la clé publique / pour décrypter : entrer la clé privée
+- Le cryptage GIF est un prototype, indépendant du reste du code
 
 
 Pour utiliser les fonctionaliées sans l'interface :
 - Cryptage texte dans une image : utiliser la class texteinpicture du module cryptageimage.py
 - Cryptage image dans une image : utiliser la class pictureinpicture du module cryptageimage.py
 - Echanges de clés : utiliser les fonctions DiffieHellman et RSA du module cle.py
-- Cryptage RSA : utiliser le module RSA.py comme dans le test disponible en fin de module
+- Cryptage RSA : utiliser la fonction chiffrementRSA du module cryptagetexte.py
 - Cryptages César et Vigenere : appeller les fonctions cesar ou vigenere du module cryptagetexte.py
 - Pour crypter une image : lancer les fonctions texttoimage ou imagetotext du module cryptageimage.py
 
@@ -26,7 +27,7 @@ STRUCTURE DU CODE:
 - Module cle.py:
 Classe Clé pour tout type de cryptage nécessitant une clé
 Fonctions utiles pour toutes opérations liées aux clés, voir directement dans le module
-Les clés RSA utilisent le fichier 328000000.txt au lieu de les générer aléatoirement
+Les clés RSA utilisent le fichier premier.txt au lieu de les générer aléatoirement
 
 - Module convertisseur.py:
 Ne contient pas de classe
@@ -52,11 +53,13 @@ les autres fonctions servent à relier les fonctionnalitées des modules ci-dess
 
 
 CRYPTAGE GIF
-Ce module est une démonstration pour prouver que le cryptage fonctionne sur des GIF
+Ce module n'est qu'une ébauche pour montrer qu'il est possible de cacher un message dans un GIF
+Ce n'est qu'un prototype et c'est pour cette raison qu'il n'est pas executable depuis l'interface
+
 Attention, ce module est prévu pour fonctionner sous linux
 Pour faire le faire fonctionner sous windows : changer les / par des \ aux lignes 77, 79, 97, 105
 
-Pour creer un GIF :
+Pour creer un GIF : (on peut aussi en utiliser un déjà fait. Dans ce cas, le mettre image par image dans un dossier GIF)
 - Creer un dossier GIF dans le dossier actuel, il stockera le gif image par image
 - Lancer la fonction cree_gif() qui prend en parametre le nom du gif que vous voulez enregistrer
 Par défaut, cette fonction cree un GIF coeur en 50 images. Pour en creer un autre, changer les équations paramétriques lignes 71 et 72
