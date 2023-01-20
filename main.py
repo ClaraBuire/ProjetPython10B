@@ -1030,7 +1030,7 @@ class Ui_Form(object):
         self.RSA_PrivateKeyCopyButton.setText(_translate("Form", "COPIER"))
         self.label_39.setText(_translate("Form", "Mod CPr :"))
         self.RSA_cprmod1outputCopyButton_2.setText(_translate("Form", "COPIER"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.RSA), _translate("Form", "Cryptage RSA"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.RSA), _translate("Form", "Echange des clés"))
         self.label_10.setText(_translate("Form", "Cryptage Image en Image"))
         self.label_32.setText(_translate("Form", "Entrée :"))
         self.label_33.setText(_translate("Form", "Mode :"))
