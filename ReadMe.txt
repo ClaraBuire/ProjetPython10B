@@ -72,4 +72,3 @@ Pour cacher un texte dans un GIF :
 Attention : Il vous sera alors demandé de rentrer le chemin d'accès de votre PREMIERE IMAGE du GIF, ne pas passer en paramètre le fichier coeur.gif
 
 Pour sortir un texte d'un GIF, lancer la fonction main_recepeteur
-
