@@ -6,6 +6,7 @@ Pour lancer le cryptage lié aux Gifs : reportez vous à la section 'CRYPTAGE GI
 
 AVERTISSEMENTS:
 - Certaines fonctionnalitées liées aux images peuvent ne pas fonctionner sous windows, notamment à cause de la fonction save du module PIL
+- Pour (dé)crypter une image dans une image, il faut que les deux images aient exactement les mêmes dimensions. Cela peut néamoins fonctionner dans d'autres cas mais il n'y a aucune garantie
 - L'échange des clés nécessite le fichier premier.txt 
 - Le cryptage dans les GIFs est indépendant de l'interface et doit être lancé à part
 - Le cryptage RSA (page 1) peut utiliser les clés générées en page 3 : dans ce cas, générer les clés (page 3), 
