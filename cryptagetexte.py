@@ -58,8 +58,9 @@ class Message:
 
 """
 normalement le chiffrement RSA n'a pas besoins de chiffrer caractere par caractere mais les calculs pouvant être tres long et on a besoin de grand nombre premier pour crypter un long message
-on a décidé ici d'adapter pour un soucis de rapidité (car on doit demontrer que notre chiffrement fonctionne en présentation)
-mais voici le code du chiffrement RSA pour un texte complet si on avait une grande puissance de calcul pour de trés grande clé et cryptage.
+on a décidé ici d'adapter pour un soucis de rapidité (car on doit demontrer que notre chiffrement fonctionne en présentation) 
+mais voici ci-dessous le code du chiffrement RSA pour un texte complet si on avait une grande puissance de calcul pour de trés grande clé et cryptage.
+avec convertisseurnumero dans le module convertisseur
 
 def chififfrementRSA(texte,cle):
     nombre = convertisseur.textnumero(texte,False)
